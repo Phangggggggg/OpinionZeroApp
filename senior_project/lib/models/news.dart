@@ -8,6 +8,7 @@ class News {
   String? xclass;
   String? percent;
   String? link;
+  String? date;
   News(
       {this.title,
       this.description,
@@ -15,5 +16,6 @@ class News {
       this.xclass,
       this.percent,
       this.link,
-      this.imgPath});
+      this.imgPath
+      ,this.date});
 }

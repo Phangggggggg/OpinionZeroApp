@@ -22,6 +22,14 @@ class _RegisterState extends State<Register> {
   String _passWordAgain = '';
   String _email = '';
   String _message = '';
+  void resetTextField() {
+    usernameController.clear();
+    passwordController.clear();
+    passwordAgainController.clear();
+    emailController.clear();
+    _message = "";
+  }
+
   var user = User();
 
   Widget _buildRegisterWith() {
@@ -183,9 +191,16 @@ class _RegisterState extends State<Register> {
                             _email = email;
 
                             _message = "username : $uname\nPassword : $pwd";
-                            user.createUser(_email, _userName, _passWord).then((value) {
-                              if(value){
-                                 Get.toNamed('/login');
+                            user
+                                .createUser(_email, _userName, _passWord)
+                                .then((value) {
+                              if (value) {
+                                Get.toNamed('/login');
+                              } else {
+                                setState(() {
+                                  resetTextField();
+                                });
+                                print("this username is already exist.");
                               }
                             });
                           });
@@ -194,7 +209,7 @@ class _RegisterState extends State<Register> {
                           print(_passWordAgain);
                           print(_email);
                           print(_message);
-                          Get.toNamed('/login');
+                          // Get.toNamed('/login');
                         },
                         child: Text(
                           'Register',

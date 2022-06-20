@@ -24,7 +24,6 @@ void _onItemTapped(int index) {
     });
   }
   late List<News> listNews = [
-    
         News(title: 'เย้ยฝ่ายค้านอภิปรายไม่ไว้วางใจให้สมราคาคุย \nนายกฯ-รัฐมนตรีแจงได้ทุกเรื่อง',
         description: 'รัฐบาลพร้อมแจงอภิปรายไม่ไว้วางใจ เย้ยฝ่ายค้านทำให้สมราคาคุย ไม่ยอมให้เกิดทุจริตเหมือนรัฐบาลที่ผ่านมา',
         image: Image(image: AssetImage('lib/assets/img1.png'), width: 2,height: 2,),xclass: '1',imgPath:'lib/assets/img1.png',percent: '98%',link: 'https://www.thairath.co.th/news/politic/2412530'),
@@ -36,6 +35,7 @@ void _onItemTapped(int index) {
 
   @override
   void initState() {
+
     _tabController = TabController(length: 4, vsync: this);
     _tabController.animateTo(2);
   }

@@ -15,7 +15,12 @@ class User {
             'password': pwd
           }));
       if (res.statusCode == 200) {
-        return true;
+         var resBody = res.body;
+        var jsonBody = jsonDecode(resBody);
+        if (jsonBody['status'] == 'add user success') {
+          return true;
+        }
+        return false;
       }
     } catch (e) {
       print(e.toString());
@@ -33,8 +38,8 @@ class User {
         body:
             jsonEncode(<String, String>{'username': username, 'password': pwd}),
       );
-      var resBody = res.body;
       if (res.statusCode == 200) {
+        var resBody = res.body;
         var jsonBody = jsonDecode(resBody);
         if (jsonBody['status'] == 'pass') {
           return true;

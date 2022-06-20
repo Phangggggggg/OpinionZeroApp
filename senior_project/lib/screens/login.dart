@@ -21,8 +21,8 @@ class _LoginState extends State<Login> {
   var user = User();
 
   void resetTextField() {
-    _userName = "";
-    _passWord = "";
+    usernameController.clear();
+    passwordController.clear();
     _message = "";
   }
 
@@ -165,8 +165,11 @@ class _LoginState extends State<Login> {
                             if (value) {
                               Get.toNamed('/home');
                             }else{
+                              setState(() {
+                                 resetTextField();
+                              });
  print("fail authentication");
-                            resetTextField();
+                           
                             }
                            
                           });
