@@ -8,14 +8,10 @@ import 'package:senior_project/screens/splash.dart';
 
 import 'screens/login.dart';
 import 'package:get/get.dart';
-import 'db/mongodb.dart';
+import 'db/user.dart';
 
 void main() {
-  var collect;
-  DBConnection? _instance = DBConnection.getInstance();
-  var db = DBConnection().getConnection();
-  var collection = db.then((value) => collect = value.collection('auth'));
-  print(collection);
+  
   runApp(const MyApp());
 }
 
@@ -25,6 +21,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+  //   var backend = new Backend();
+  // print(backend.createUser('Phang','Phang', '1234'));
     return GetMaterialApp(
       initialRoute: '/',
       getPages: [

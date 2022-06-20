@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/gestures.dart';
+import '../db/user.dart';
 import '/colors/colors.dart';
 
 class Login extends StatefulWidget {
@@ -17,6 +18,19 @@ class _LoginState extends State<Login> {
   String _userName = '';
   String _passWord = '';
   String _message = '';
+  var user = User();
+
+  void resetTextField() {
+    _userName = "";
+    _passWord = "";
+    _message = "";
+  }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   user.p
+  // }
 
   Widget _buildRegisterWith() {
     return Center(
@@ -75,7 +89,7 @@ class _LoginState extends State<Login> {
                       //   height: 80,
                       //   child: Image.asset('lib/assets/logo/logo.png')),
                       Container(
-                          margin: EdgeInsets.fromLTRB(0.0, 20, 0, 0),
+                          margin: EdgeInsets.fromLTRB(0.0, 45, 0, 0),
                           child: Text(
                             "Sign In",
                             style: TextStyle(
@@ -108,7 +122,7 @@ class _LoginState extends State<Login> {
                             borderRadius: BorderRadius.circular(15.0)),
                         labelText: "Username",
                         hintText: 'Enter your Username',
-                        icon: Icon(Icons.person_outline),
+                        prefixIcon: Icon(Icons.person_outline),
                       ),
                     ),
                   ),
@@ -122,7 +136,7 @@ class _LoginState extends State<Login> {
                             borderRadius: BorderRadius.circular(15.0)),
                         labelText: "Password",
                         hintText: 'Enter your Password',
-                        icon: Icon(Icons.key),
+                        prefixIcon: Icon(Icons.key),
                       ),
                     ),
                   ),
@@ -147,7 +161,15 @@ class _LoginState extends State<Login> {
                           print(_userName);
                           print(_passWord);
                           print(_message);
-                          Get.toNamed('/home');
+                          user.authUser(_userName, _passWord).then((value) {
+                            if (value) {
+                              Get.toNamed('/home');
+                            }else{
+ print("fail authentication");
+                            resetTextField();
+                            }
+                           
+                          });
                         },
                         child: Text(
                           'Login',
@@ -156,8 +178,10 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                  // Text('${_userName}')
-                  _buildRegisterWith(),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                    child: _buildRegisterWith(),
+                  )
                 ],
               ),
             ),

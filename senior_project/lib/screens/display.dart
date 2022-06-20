@@ -77,10 +77,13 @@ void _onItemTapped(int index) {
                         margin: EdgeInsets.all(9.0),
                         height: 180,
                         width: 170,
-                        child: Text('New1'),
+                        child: Image.asset('lib/assets/img1.png',
+                                 fit: BoxFit.fill,
+                                 
+                        ),
                         decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(15.0),
+            
+                          borderRadius: BorderRadius.all(Radius.circular(22.0)),
                         ),
                       );
                     })),

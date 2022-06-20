@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/gestures.dart';
+import 'package:senior_project/db/user.dart';
 import '/colors/colors.dart';
 
 class Register extends StatefulWidget {
@@ -21,6 +22,30 @@ class _RegisterState extends State<Register> {
   String _passWordAgain = '';
   String _email = '';
   String _message = '';
+  var user = User();
+
+  Widget _buildRegisterWith() {
+    return Center(
+      child: RichText(
+          text: TextSpan(children: [
+        TextSpan(
+          text: 'Already have an account?  ',
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
+        TextSpan(
+            text: 'Sign In',
+            style: TextStyle(
+              color: Colors.blue,
+            ),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                Get.toNamed('/login');
+              }),
+      ])),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +63,7 @@ class _RegisterState extends State<Register> {
               right: 0,
               left: 0,
               child: Container(
-                width: double.maxFinite,
+                width: double.infinity,
                 height: 250,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
@@ -72,12 +97,12 @@ class _RegisterState extends State<Register> {
             right: 0,
             left: 0,
             child: Container(
-              margin: EdgeInsets.all(20),
+              margin: EdgeInsets.all(16),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(30.0)),
                   color: Colors.white),
-              width: double.infinity,
-              height: 410,
+              width: double.maxFinite,
+              height: 450,
               child: ListView(
                 children: <Widget>[
                   Padding(
@@ -89,7 +114,7 @@ class _RegisterState extends State<Register> {
                             borderRadius: BorderRadius.circular(10.0)),
                         labelText: "Username",
                         hintText: 'Enter your Username',
-                        icon: Icon(Icons.person_outline),
+                        prefixIcon: Icon(Icons.person_outline),
                       ),
                     ),
                   ),
@@ -103,7 +128,7 @@ class _RegisterState extends State<Register> {
                             borderRadius: BorderRadius.circular(10.0)),
                         labelText: "Email",
                         hintText: 'Enter your Email',
-                        icon: Icon(Icons.email_outlined),
+                        prefixIcon: Icon(Icons.email_outlined),
                       ),
                     ),
                   ),
@@ -117,7 +142,7 @@ class _RegisterState extends State<Register> {
                             borderRadius: BorderRadius.circular(10.0)),
                         labelText: "Password",
                         hintText: 'Enter your Password',
-                        icon: Icon(Icons.key),
+                        prefixIcon: Icon(Icons.key),
                       ),
                     ),
                   ),
@@ -131,7 +156,7 @@ class _RegisterState extends State<Register> {
                             borderRadius: BorderRadius.circular(10.0)),
                         labelText: "Confirm Password",
                         hintText: 'Enter your Password Again',
-                        icon: Icon(Icons.key),
+                        prefixIcon: Icon(Icons.key),
                       ),
                     ),
                   ),
@@ -158,6 +183,11 @@ class _RegisterState extends State<Register> {
                             _email = email;
 
                             _message = "username : $uname\nPassword : $pwd";
+                            user.createUser(_email, _userName, _passWord).then((value) {
+                              if(value){
+                                 Get.toNamed('/login');
+                              }
+                            });
                           });
                           print(_userName);
                           print(_passWord);
@@ -173,39 +203,43 @@ class _RegisterState extends State<Register> {
                       ),
                     ),
                   ),
-                  // Text('${_userNaSme}'
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                    child: _buildRegisterWith(),
+                  )
                 ],
               ),
             ),
           ),
-          Positioned(
-              top: 610,
-              right: 0,
-              left: 110,
-              child: Container(
-                child: Text('----------------  More  ---------------- '),
-              )),
-          Positioned(
-              top: 630,
-              right: 0,
-              left: 140,
-              child: Container(
-                // margin: EdgeInsets.all(10),
-                // decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                //     color: Colors.white),
-                width: 10,
-                height: 70,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    IconButton(
-                        icon: Icon(Icons.email, size: 40), onPressed: () {}),
-                    IconButton(
-                        icon: Icon(Icons.facebook, size: 40), onPressed: () {})
-                  ],
-                ),
-              ))
+
+          // Positioned(
+          //     top: 610,
+          //     right: 0,
+          //     left: 90,
+          //     chrild: Container(
+          //       child: Text('----------------  More  ---------------- '),
+          //     )),
+          // Positioned(
+          //     top: 580,
+          //     right: 0,
+          //     left: 140,
+          //     child: Container(
+          //       // margin: EdgeInsets.all(10),
+          //       // decoration: BoxDecoration(
+          //       //     borderRadius: BorderRadius.all(Radius.circular(30.0)),
+          //       //     color: Colors.white),
+          //       width: double.infinity,
+          //       height: 70,
+          //       child: Row(
+          //         crossAxisAlignment: CrossAxisAlignment.stretch,
+          //         children: [
+          //           IconButton(
+          //               icon: Icon(Icons.email, size: 40), onPressed: () {}),
+          //           IconButton(
+          //               icon: Icon(Icons.facebook, size: 40), onPressed: () {})
+          //         ],
+          //       ),
+          //     ))
         ],
       ),
     );
