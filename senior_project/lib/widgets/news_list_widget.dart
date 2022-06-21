@@ -8,9 +8,9 @@ class NewsListWidget extends StatelessWidget {
 
   NewsListWidget(this.newsList);
 
-void _launchUrl(Uri url) async {
-  if (!await launchUrl(url)) throw 'Could not launch $url';
-}
+  void _launchUrl(Uri url) async {
+    if (!await launchUrl(url)) throw 'Could not launch $url';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +35,21 @@ void _launchUrl(Uri url) async {
                 //   padding: EdgeInsets.all(10),
                 //   child: newsList[index].image,
                 // ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image(
+                    image: AssetImage('lib/assets/img1.png'),
+                    height: 90,
+                    width: 90,
+                  ),
+                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {
                         print('tab');
-                         _launchUrl(Uri.parse(newsList[index].link.toString()));
+                        _launchUrl(Uri.parse(newsList[index].link.toString()));
                       },
                       child: Column(
                         children: [
