@@ -22,6 +22,11 @@ class _RegisterState extends State<Register> {
   String _passWordAgain = '';
   String _email = '';
   String _message = '';
+  final _formKey_pass = GlobalKey<FormState>();
+  final _formKey_repass = GlobalKey<FormState>();
+  final _formKey_user = GlobalKey<FormState>();
+  final _formKey_email = GlobalKey<FormState>();
+
   void resetTextField() {
     usernameController.clear();
     passwordController.clear();
@@ -115,56 +120,94 @@ class _RegisterState extends State<Register> {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8.0, 15, 8.0, 8.0),
-                    child: TextField(
-                      controller: usernameController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        labelText: "Username",
-                        hintText: 'Enter your Username',
-                        prefixIcon: Icon(Icons.person_outline),
+                    child: Form(
+                      key: _formKey_user,
+                      child: TextFormField(
+                        controller: usernameController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                          labelText: "Username",
+                          hintText: 'Enter your Username',
+                          prefixIcon: Icon(Icons.person_outline),
+                        ),
+                        validator: (text) {
+                          if (text == null || text.isEmpty) {
+                            return 'Enter Your Username';
+                          }
+                          return null;
+                        },
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
-                    child: TextField(
-                      keyboardType: TextInputType.emailAddress,
-                      controller: emailController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        labelText: "Email",
-                        hintText: 'Enter your Email',
-                        prefixIcon: Icon(Icons.email_outlined),
+                    child: Form(
+                      key: _formKey_email,
+                      child: TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        controller: emailController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                          labelText: "Email",
+                          hintText: 'Enter your Email',
+                          prefixIcon: Icon(Icons.email_outlined),
+                        ),
+                        validator: (text) {
+                          if (text == null || text.isEmpty) {
+                            return 'Enter Your Email';
+                          }
+                          return null;
+                        },
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
-                    child: TextField(
-                      // keyboardType: TextInputType.emailAddress,
-                      controller: passwordController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        labelText: "Password",
-                        hintText: 'Enter your Password',
-                        prefixIcon: Icon(Icons.key),
+                    child: Form(
+                      key: _formKey_pass,
+                      child: TextFormField(
+                        // keyboardType: TextInputType.emailAddress,
+                        controller: passwordController,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                          labelText: "Password",
+                          hintText: 'Enter your Password',
+                          prefixIcon: Icon(Icons.key),
+                        ),
+                        validator: (text) {
+                          if (text == null || text.isEmpty) {
+                            return 'Enter Your Password';
+                          }
+                          return null;
+                        },
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
-                    child: TextField(
-                      // keyboardType: TextInputType.emailAddress,
-                      controller: passwordAgainController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        labelText: "Confirm Password",
-                        hintText: 'Enter your Password Again',
-                        prefixIcon: Icon(Icons.key),
+                    child: Form(
+                      key: _formKey_repass,
+                      child: TextFormField(
+                        // keyboardType: TextInputType.emailAddress,
+                        controller: passwordAgainController,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                          labelText: "Confirm Password",
+                          hintText: 'Enter your Password Again',
+                          prefixIcon: Icon(Icons.key),
+                        ),
+                        validator: (text) {
+                          if (text == null || text.isEmpty) {
+                            return 'Enter Your Password Again';
+                          }
+                          return null;
+                        },
                       ),
                     ),
                   ),
@@ -179,31 +222,51 @@ class _RegisterState extends State<Register> {
                           borderRadius: BorderRadius.all(Radius.circular(15.0)),
                         ),
                         onPressed: () {
-                          var uname = usernameController.text;
-                          var pwd = passwordController.text;
-                          var repwd = passwordAgainController.text;
-                          var email = emailController.text;
+                          if (_formKey_user.currentState!.validate() &&
+                              _formKey_email.currentState!.validate() &&
+                              _formKey_pass.currentState!.validate() &&
+                              _formKey_repass.currentState!.validate()) {
+                            var uname = usernameController.text;
+                            var pwd = passwordController.text;
+                            var repwd = passwordAgainController.text;
+                            var email = emailController.text;
 
-                          setState(() {
-                            _userName = uname;
-                            _passWord = pwd;
-                            _passWordAgain = repwd;
-                            _email = email;
+                            setState(() {
+                              _userName = uname;
+                              _passWord = pwd;
+                              _passWordAgain = repwd;
+                              _email = email;
 
-                            _message = "username : $uname\nPassword : $pwd";
-                            user
-                                .createUser(_email, _userName, _passWord)
-                                .then((value) {
-                              if (value) {
-                                Get.toNamed('/login');
-                              } else {
-                                setState(() {
-                                  resetTextField();
-                                });
-                                print("this username is already exist.");
-                              }
+                              _message = "username : $uname\nPassword : $pwd";
+                              user
+                                  .createUser(_email, _userName, _passWord)
+                                  .then((value) {
+                                if (value) {
+                                  Get.toNamed('/login');
+                                } else {
+                                  setState(() {
+                                    resetTextField();
+                                  });
+                                  print("this username is already exist.");
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title:
+                                          Text("Fail Username Already Exists"),
+                                      content: Text(
+                                          'Fail! Can\'t create new user account. Username already exists'),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () =>
+                                                Navigator.pop(context),
+                                            child: Text('OK'))
+                                      ],
+                                    ),
+                                  );
+                                }
+                              });
                             });
-                          });
+                          }
                           print(_userName);
                           print(_passWord);
                           print(_passWordAgain);
