@@ -37,11 +37,7 @@ class NewsListWidget extends StatelessWidget {
                 // ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Image(
-                    image: AssetImage('lib/assets/img1.png'),
-                    height: 90,
-                    width: 90,
-                  ),
+                  child: newsList[index].image,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
