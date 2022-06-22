@@ -29,7 +29,7 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
             'เย้ยฝ่ายค้านอภิปรายไม่ไว้วางใจให้สมราคาคุย \nนายกฯ-รัฐมนตรีแจงได้ทุกเรื่อง',
         description:
             'รัฐบาลพร้อมแจงอภิปรายไม่ไว้วางใจ เย้ยฝ่ายค้านทำให้สมราคาคุย ไม่ยอมให้เกิดทุจริตเหมือนรัฐบาลที่ผ่านมา',
-        image: Image.asset('lib/assets/img2.png', height: 100, width: 100),
+        image: Image.asset('lib/assets/img1.png', height: 100, width: 100),
         xclass: '1',
         imgPath: 'lib/assets/img1.png',
         percent: '98%',

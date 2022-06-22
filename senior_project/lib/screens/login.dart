@@ -18,21 +18,17 @@ class _LoginState extends State<Login> {
   String _userName = '';
   String _passWord = '';
   String _message = '';
+  String _errText = '';
+  bool _autoValidate = false;
+
   var user = User();
   final _formKey = GlobalKey<FormState>();
-  final _formKey2 = GlobalKey<FormState>();
 
   void resetTextField() {
     usernameController.clear();
     passwordController.clear();
     _message = "";
   }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   user.p
-  // }
 
   Widget _buildRegisterWith() {
     return Center(
@@ -111,116 +107,134 @@ class _LoginState extends State<Login> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(30.0)),
                   color: Colors.white),
-              width: double.infinity,
-              height: 300,
-              child: ListView(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8.0, 15, 10.0, 8.0),
-                    child: Form(
-                      key: _formKey,
-                      child: TextFormField(
-                        controller: usernameController,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15.0)),
-                          labelText: "Username",
-                          hintText: 'Enter your Username',
-                          prefixIcon: Icon(Icons.person_outline),
+              width: double.maxFinite,
+              height: 350,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(8.0, 15, 10.0, 8.0),
+                child: Form(
+                  key: _formKey,
+                  autovalidateMode: _autoValidate
+                      ? AutovalidateMode.onUserInteraction
+                      : AutovalidateMode.disabled,
+                  child: ListView(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(9.0),
+                        child: TextFormField(
+                          controller: usernameController,
+                          // textInputAction: TextInputAc,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15.0)),
+                            labelText: "Username",
+                            // errorText: _errText,
+                            hintText: 'Enter your Username',
+                            prefixIcon: Icon(Icons.person_outline),
+                          ),
+
+                          validator: (text) {
+                            print(text);
+                            if (text == null || text.isEmpty) {
+                              return 'Enter Your Username';
+                            }
+                          },
                         ),
-                        validator: (text) {
-                          if (text == null || text.isEmpty) {
-                            return 'Enter Your Username';
-                          }
-                          return null;
-                        },
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Form(
-                      key: _formKey2,
-                      child: TextFormField(
-                        controller: passwordController,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15.0)),
-                          labelText: "Password",
-                          hintText: 'Enter your Password',
-                          prefixIcon: Icon(Icons.key),
+                      Padding(
+                        padding: const EdgeInsets.all(9.0),
+                        child: TextFormField(
+                          controller: passwordController,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15.0)),
+                            labelText: "Password",
+                            hintText: 'Enter your Password',
+                            prefixIcon: Icon(Icons.key),
+                          ),
+                          validator: (text) {
+                            if (text == null || text.isEmpty) {
+                              return 'Enter Your Password';
+                            }
+                            return null;
+                          },
                         ),
-                        validator: (text) {
-                          if (text == null || text.isEmpty) {
-                            return 'Enter Your Password';
-                          }
-                          return null;
-                        },
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Center(
-                      child: MaterialButton(
-                        minWidth: 300.0,
-                        height: 50.0,
-                        color: kDarkBlue,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                        ),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate() &&
-                              _formKey2.currentState!.validate()) {
-                            var uname = usernameController.text;
-                            var pwd = passwordController.text;
-                            setState(() {
-                              _userName = uname;
-                              _passWord = pwd;
-                              _message = "username : $uname\nPassword : $pwd";
-                            });
-                            print(_userName);
-                            print(_passWord);
-                            print(_message);
-                            user.authUser(_userName, _passWord).then((value) {
-                              if (value) {
-                                Get.toNamed('/home');
-                              } else {
+                      Padding(
+                        padding: const EdgeInsets.all(9.0),
+                        child: Center(
+                          child: MaterialButton(
+                            minWidth: 300.0,
+                            height: 50.0,
+                            color: kDarkBlue,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0)),
+                            ),
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                // validate
+                                var uname = usernameController.text;
+                                var pwd = passwordController.text;
                                 setState(() {
-                                  resetTextField();
+                                  _userName = uname;
+                                  _passWord = pwd;
+                                  _message =
+                                      "username : $uname\nPassword : $pwd";
                                 });
-                                print("fail authentication");
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                    title: Text("Fail Authentication"),
-                                    content: Text(
-                                        'Fail! Please Register your account first before Login'),
-                                    actions: [
-                                      TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context),
-                                          child: Text('OK'))
-                                    ],
-                                  ),
-                                );
+                               
+                        
+
+                                // print(_userName);
+                                // print(_passWord);
+                                // print(_message);
+                                user
+                                    .authUser(_userName, _passWord)
+                                    .then((value) {
+                                  if (value) {
+                                    Get.toNamed('/home');
+                                  } else {
+                                    setState(() {
+                                      _autoValidate = true;
+                                      resetTextField();
+                                    });
+                                    print("fail authentication");
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        title: Text("Fail Authentication"),
+                                        content: Text(
+                                            'Fail! Please Register your account first before Login'),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                              child: Text('OK'))
+                                        ],
+                                      ),
+                                    );
+                                  }
+                                });
                               }
-                            });
-                          }
-                        },
-                        child: Text(
-                          'Login',
-                          style: TextStyle(color: Colors.white, fontSize: 15),
+                               setState(() {
+                                  _autoValidate = true;
+                                });
+                            },
+                            child: Text(
+                              'Login',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                        child: _buildRegisterWith(),
+                      )
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                    child: _buildRegisterWith(),
-                  )
-                ],
+                ),
               ),
             ),
           ),
