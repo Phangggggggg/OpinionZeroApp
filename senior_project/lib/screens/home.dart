@@ -30,8 +30,11 @@ class _HomeState extends State<Home> {
       child: Scaffold(    
         body: SingleChildScrollView(
           
-          child: _widgetOptions.elementAt(_selectedIndex)
-        
+          child: 
+
+              _widgetOptions.elementAt(_selectedIndex),
+          
+          
         ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(

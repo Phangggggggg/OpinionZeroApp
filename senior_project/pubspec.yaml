@@ -51,9 +51,9 @@ dev_dependencies:
   animated_splash_screen: ^1.2.0
   flutter_svg: ^1.1.0
   flutter_launcher_icons: ^0.9.3
-  mongo_dart: ^0.7.4+1
   http: ^0.13.4
   material_floating_search_bar: ^0.2.6
+  provider: ^6.0.3
   
 flutter_icons:
   android: 'launcher_icon'
