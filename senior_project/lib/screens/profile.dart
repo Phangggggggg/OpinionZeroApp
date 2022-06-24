@@ -108,7 +108,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                                         actions: [
                                           TextButton(
                                               onPressed: () =>
-                                                  Navigator.pop(context),
+                                                  Get.toNamed('/login'),
                                               child: Text('Yes')
                                           ), 
                                           TextButton(
