@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 
 import 'screens/login.dart';
 import 'package:get/get.dart';
-import 'db/user.dart';
+import 'models/user.dart';
 
 void main() {
   Provider.debugCheckInvalidValueType = null;

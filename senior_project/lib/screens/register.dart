@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/gestures.dart';
-import 'package:senior_project/db/user.dart';
+import 'package:senior_project/models/user.dart';
 import '/colors/colors.dart';
 
 class Register extends StatefulWidget {

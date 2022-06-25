@@ -14,68 +14,44 @@ class NewsListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height / 2,
-      child: ListView.builder(
-        itemBuilder: (ctx, index) {
-          return Card(
-            child: Row(
-              children: <Widget>[
-                // Container(
-                //   margin: EdgeInsets.symmetric(
-                //     vertical: 10,
-                //     horizontal: 15,
-                //   ),
-                //   decoration: BoxDecoration(
-                //     border: Border.all(
-                //       color: Colors.purple,
-                //       width: 2,
-                //     ),
-                //   ),
-                //   padding: EdgeInsets.all(10),
-                //   child: newsList[index].image,
-                // ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: newsList[index].image,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        print('tab');
-                        _launchUrl(Uri.parse(newsList[index].link.toString()));
-                      },
-                      child: Column(
-                        children: [
-                          Text(
-                            newsList[index].title.toString(),
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            newsList[index].xclass.toString(),
-                            overflow: TextOverflow.clip,
-                            maxLines: 2,
-                            style: TextStyle(
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ],
+    return ListView.builder(
+      itemBuilder: (ctx, index) {
+        return Card(
+          child: Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: newsList[index].image,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () {
+                      print('tab');
+                      _launchUrl(Uri.parse(newsList[index].link.toString()));
+                    },
+                    child: Container(
+                      
+                      width: MediaQuery.of(context).size.width/1.8,
+                      // decoration: BoxDecoration(backgroundBlendMode: ),
+                      child: Text(
+                        newsList[index].title.toString(),
+                      
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ],
-                ),
-              ],
-            ),
-          );
-        },
-        itemCount: newsList.length,
-      ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+      itemCount: newsList.length,
     );
   }
 }
