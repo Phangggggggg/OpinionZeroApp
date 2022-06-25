@@ -38,7 +38,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     NewsDb n = NewsDb();
-    n.fetchNews().then((lst) => context.read<ListNewsProvider>().fetchListNews(lst)
+    n.fetchNews().then((lst) => context.read<ListNewsProvider>().fetchListNews(lst[0],lst[1],lst[2],lst[3])
     );
     return SafeArea(
       child: Scaffold(

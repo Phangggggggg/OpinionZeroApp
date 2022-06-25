@@ -5,9 +5,8 @@ import 'dart:convert';
 import 'package:senior_project/models/news.dart';
 
 class NewsDb {
-
-  Future<List<News>>fetchNews() async {
-      List<News> listNews = [];
+  Future<List<List<News>>> fetchNews() async {
+    List<List<News>> listNews = [[]];
     try {
       var res = await http.put(
         Uri.parse(ApiUrl.retrieveUrl),
@@ -19,8 +18,16 @@ class NewsDb {
         var resBody = res.body;
         var responseJson = jsonDecode(utf8.decode(res.bodyBytes));
         var twmp = responseJson['test_news'].toList();
-        listNews =
-            List<News>.from(twmp.map((model) => News.fromJson(model)));
+        var reds = responseJson['red_news'].toList();
+        var yellow = responseJson['yellow_news'].toList();
+        var neutral = responseJson['neutral_news'].toList();
+        listNews = [List<News>.from(twmp.map((model) => News.fromJson(model))),
+        List<News>.from(reds.map((model) => News.fromJson(model))),
+       
+        List<News>.from(neutral.map((model) => News.fromJson(model))),
+         List<News>.from(yellow.map((model) => News.fromJson(model)))
+        ];
+
         return listNews;
       }
     } catch (e) {
@@ -28,5 +35,4 @@ class NewsDb {
     }
     return listNews;
   }
-  
 }

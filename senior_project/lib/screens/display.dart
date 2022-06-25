@@ -18,16 +18,10 @@ class Display extends StatefulWidget {
 
 class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  int _selectedIndex = 0;
-
+ 
   late final List<News> listNews =
       Provider.of<ListNewsProvider>(context).filterListNews;
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   void initState() {
@@ -54,9 +48,10 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0.0, 10, 0.0, 0.0),
-                child: Text(
+                child: 
+                Text(
                   'Breaking News',
-                  style: TextStyle(fontSize: 30),
+                  style: TextStyle(fontFamily: 'OoohBaby', fontSize: 20),
                 ),
               ),
             ],
@@ -83,20 +78,56 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
                 })),
         SearchBarWidget(),
         Container(
+      
           child: TabBar(
-              labelColor: Colors.black,
+            // overlayColor: MaterialStateProperty.resolveWith<Color?>(
+            //   (Set<MaterialState> states) {
+            //     if (states.contains(MaterialState.hovered))
+            //       return Colors.amberAccent; //<-- SEE HERE
+            //     return null; 
+            //   },
+            // ), 
+            // indicatorColor: Colors.lime,
+            indicatorSize: TabBarIndicatorSize.values[0],
+              labelColor: Colors.black12,
               unselectedLabelColor: Colors.grey,
               controller: _tabController,
               tabs: [
                 Tab(
-                  text: 'Popular',
+                  child: Text(
+                    'All',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
                 Tab(
-                  text: 'Red',
+                      child: Text(
+                        'Red',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                 ),
-                Tab(text: 'Neutral'),
                 Tab(
-                  text: 'Yellow',
+                      child: Text(
+                        'Neutral',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                    )
+                ),
+                Tab(
+                  child: Text(
+                    'Yellow',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 )
               ]),
         ),
@@ -107,27 +138,22 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
             height: MediaQuery.of(context).size.height,
 
             child: TabBarView(controller: _tabController, children: [
-              
               Consumer<ListNewsProvider>(
-                builder: (context,listNewsProvider,child) {
-                  return NewsListWidget(listNewsProvider.filterListNews);
-                }
-              ),
+                  builder: (context, listNewsProvider, child) {
+                return NewsListWidget(listNewsProvider.filterListNews);
+              }),
               Consumer<ListNewsProvider>(
-                builder: (context,listNewsProvider,child) {
-                  return NewsListWidget(listNewsProvider.filterListNews);
-                }
-              ),
+                  builder: (context, listNewsProvider, child) {
+                return NewsListWidget(listNewsProvider.filterRedListNews);
+              }),
               Consumer<ListNewsProvider>(
-                builder: (context,listNewsProvider,child) {
-                  return NewsListWidget(listNewsProvider.filterListNews);
-                }
-              ),
+                  builder: (context, listNewsProvider, child) {
+                return NewsListWidget(listNewsProvider.filterNeutralListNews);
+              }),
               Consumer<ListNewsProvider>(
-                builder: (context,listNewsProvider,child) {
-                  return NewsListWidget(listNewsProvider.filterListNews);
-                }
-              )
+                  builder: (context, listNewsProvider, child) {
+                return NewsListWidget(listNewsProvider.filterYellowListNews);
+              })
             ]),
           ),
         ), //
