@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:senior_project/models/news.dart';
 import 'package:get/get.dart';
 import 'package:senior_project/providers/listnews_provider.dart';
@@ -31,6 +32,7 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+  
     return Column(
       children: [
         Container(
@@ -68,7 +70,7 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
                     height: 180,
                     width: 170,
                     child: Image.asset(
-                      'lib/assets/img1.png',
+                      'lib/assets/imgOut.png',
                       fit: BoxFit.fill,
                     ),
                     decoration: BoxDecoration(
@@ -113,7 +115,7 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
                 ),
                 Tab(
                       child: Text(
-                        'Neutral',
+                        'Yellow',
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -122,7 +124,7 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
                 ),
                 Tab(
                   child: Text(
-                    'Yellow',
+                    'Neutral',
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,

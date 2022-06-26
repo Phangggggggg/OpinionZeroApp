@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:senior_project/db/news.dart';
 import 'package:senior_project/models/news.dart';
 import 'package:senior_project/providers/listnews_provider.dart';
 import 'package:senior_project/screens/addOpinion.dart';
@@ -37,7 +36,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    NewsDb n = NewsDb();
+      News n = News(id: "xx", title: "rr");
     n.fetchNews().then((lst) => context.read<ListNewsProvider>().fetchListNews(lst[0],lst[1],lst[2],lst[3])
     );
     return SafeArea(

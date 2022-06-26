@@ -3,4 +3,5 @@ class ApiUrl {
   static const String addUserUrl = baseUrl + '/users/add';
   static const String authUserUrl = baseUrl + '/auth/';
   static const String retrieveUrl = baseUrl + '/articles/retrieve';
+  static const String retrieveOpinionUrl = baseUrl + '/articles/opinion';
 }
