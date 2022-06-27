@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:senior_project/utils/user_shared_preference.dart';
 
 class ListNewsProvider with ChangeNotifier {
+  int selectedIndex = 0;
+
   late List<News> opinionListNews = [];
   late List<News> listNews = [];
   late List<News> redListNews = [];
@@ -25,6 +27,11 @@ class ListNewsProvider with ChangeNotifier {
     filterRedListNews = List.from(redListNews);
     filterYellowListNews = List.from(yellowListNews);
     filterNeutralListNews = List.from(nuetralListsNews);
+    notifyListeners();
+  }
+
+  void onItemTapped(int index) {
+    selectedIndex = index;
     notifyListeners();
   }
 

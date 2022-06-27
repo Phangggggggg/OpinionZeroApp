@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:senior_project/colors/colors.dart';
+import 'package:senior_project/providers/listnews_provider.dart';
 import 'package:senior_project/widgets/button_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:get/get.dart';
 import 'package:senior_project/utils/user_shared_preference.dart';
 import '../models/news.dart';
 import '../screens/addOpinion.dart';
+import 'package:provider/provider.dart';
 
 class AddOpinionWidget extends StatefulWidget {
   News newsItem;
@@ -118,30 +120,30 @@ class _AddOpinionWidgetState extends State<AddOpinionWidget> {
                           width: width),
                     ],
                   ),
-      
                 ],
               )),
               actions: [
-                 TextButton(
-                          onPressed: () {
-                            setState(() {
-                              voteColor = "";
-                            });
-                            Navigator.pop(context);
-                          },
-                          child: Text('Cancel')),
-                            TextButton(
-                          onPressed: () async {
-                            String userId = UserSharedPreference.getUser()[0];
-                            await News(id: 'aa', title: 'ff')
-                                .addOpinion(voteColor, newId, userId)
-                                .then((value) => print(value));
-                             setState(() {
-                              voteColor = "";
-                            });
-                            Navigator.pushNamed(context, '/home');
-                          },
-                          child: Text('Ok')),
+                TextButton(
+                    onPressed: () {
+                      setState(() {
+                        voteColor = "";
+                      });
+                      Navigator.pop(context);
+                    },
+                    child: Text('Cancel')),
+                TextButton(
+                    onPressed: () async {
+                      String userId = UserSharedPreference.getUser()[0];
+                      await News(id: 'aa', title: 'ff')
+                          .addOpinion(voteColor, newId, userId)
+                          .then((value) => print(value));
+                      setState(() {
+                        voteColor = "";
+                      });
+                     
+                      Navigator.pushNamed(context, '/home');
+                    },
+                    child: Text('Ok')),
               ],
             );
           });
