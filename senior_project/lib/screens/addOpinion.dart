@@ -19,7 +19,7 @@ class _AddOpinionState extends State<AddOpinion> {
   @override
   Widget build(BuildContext context) {
     News n = News(id: "xx", title: "rr");
-    n.fetchOpinionNews().then((lst) => context.read<ListNewsProvider>().fetchOpinionListNews(lst));
+      
     return Consumer<ListNewsProvider>(
       builder: (context,listNewsProvider, child) {
         return Column(

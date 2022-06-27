@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:senior_project/db/apiUrl.dart';
+import 'package:senior_project/utils/user_shared_preference.dart';
 
 class News {
   String id;
@@ -88,7 +89,7 @@ class News {
     return listOpinion;
   }
 
-   Future<bool> addOpinion(String xclass, String newsId, String userId) async {
+  Future<bool> addOpinion(String xclass, String newsId, String userId) async {
     try {
       var res = await http.put(Uri.parse(ApiUrl.addOpinionUrl),
           headers: <String, String>{
@@ -103,6 +104,36 @@ class News {
         var resBody = res.body;
         var jsonBody = jsonDecode(resBody);
         if (jsonBody['status'] == 'add opinion success') {
+          return true;
+        }
+        return false;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    return false;
+  }
+
+  Future<bool> filterNewsByUser(String userId) async {
+    try {
+      var res = await http.put(Uri.parse(ApiUrl.filterNewsUrl),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, String>{
+            'user_id': userId,
+          }));
+      if (res.statusCode == 200) {
+        var resBody = res.body;
+        var jsonBody = jsonDecode(resBody);
+        if (jsonBody['status'] == 'Success') {
+          List<String> newList = [];
+          List<dynamic> dyList = jsonBody['news_ids'];
+          dyList.forEach(
+            (element) => newList.add(element['news_id']),
+          );
+          UserSharedPreference.setFilterNews(newList);
+          // print(newList);
           return true;
         }
         return false;

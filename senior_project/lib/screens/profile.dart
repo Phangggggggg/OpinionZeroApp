@@ -19,23 +19,24 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
 
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
-        _tabController.addListener(onTap);
-
+    _tabController.addListener(onTap);
   }
+
   List<bool> _isDisabled = [false, true];
   onTap() {
-  if (_isDisabled[_tabController.index]) {
-    int index = _tabController.previousIndex;
-    setState(() {
-      _tabController.index = index;
-    });
-  }
+    if (_isDisabled[_tabController.index]) {
+      int index = _tabController.previousIndex;
+      setState(() {
+        _tabController.index = index;
+      });
+    }
     @override
     void dispose() {
-    _tabController.dispose();
-    super.dispose();
+      _tabController.dispose();
+      super.dispose();
+    }
   }
-}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,39 +92,36 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                     controller: _tabController,
                     tabs: [
                       Tab(
-                        text: 'Edirt profile',
+                        text: 'Edit profile',
                       ),
                       Tab(
                         // text: 'Log out',
-                  
-                        child: 
-                         GestureDetector(
-                          child: Text('Log out'),
-                          onTap: () {
-                               showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                        title: Text("Log Out"),
-                                        content: Text(
-                                            'Are you sure you want to Log Out?'),
-                                        actions: [
-                                          TextButton(
-                                              onPressed: () {
-                                              UserSharedPreference.deleteUser();
-                                                  Get.toNamed('/login');
-                                              },
-                                              child: Text('Yes')
-                                          ), 
-                                          TextButton(
-                                              onPressed: () =>
-                                                  Navigator.pop(context),
-                                              child: Text('No')
-                                          ),
-                                      
-                                        ],
-                                      ),
-                                    );
-                         } ),
+
+                        child: GestureDetector(
+                            child: Text('Log out'),
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: Text("Log Out"),
+                                  content:
+                                      Text('Are you sure you want to Log Out?'),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          UserSharedPreference.deleteUser();
+                                          UserSharedPreference
+                                              .deleteFilterListNews();
+                                          Get.toNamed('/login');
+                                        },
+                                        child: Text('Yes')),
+                                    TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: Text('No')),
+                                  ],
+                                ),
+                              );
+                            }),
                       ),
                     ]),
               ),
@@ -136,14 +134,14 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                   width: double.maxFinite,
                   height: MediaQuery.of(context).size.height,
 
-                  child: TabBarView(controller: _tabController,
-                          physics: const NeverScrollableScrollPhysics(),
-
-                  children: [
-                    // IconWidget(iconData: Icons.access_alarm, txt: 'edit'),
-                    EditProfile(),
-                    Text('log out'),
-                  ]),
+                  child: TabBarView(
+                      controller: _tabController,
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: [
+                        // IconWidget(iconData: Icons.access_alarm, txt: 'edit'),
+                        EditProfile(),
+                        Text('log out'),
+                      ]),
                 ),
               ),
             ),

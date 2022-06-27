@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:senior_project/models/news.dart';
 import 'package:senior_project/providers/listnews_provider.dart';
 import 'package:senior_project/screens/addOpinion.dart';
 import 'package:senior_project/screens/display.dart';

@@ -5,6 +5,7 @@ import 'package:senior_project/models/news.dart';
 import 'package:senior_project/providers/listnews_provider.dart';
 import 'package:senior_project/screens/addOpinion.dart';
 import 'package:senior_project/screens/display.dart';
+import 'package:senior_project/utils/user_shared_preference.dart';
 import 'display.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +17,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
-
+ String userId = UserSharedPreference.getUser()[0];
   static List<Widget> _widgetOptions = <Widget>[
     Display(),
     AddOpinion(),
@@ -39,6 +40,8 @@ class _HomeState extends State<Home> {
       News n = News(id: "xx", title: "rr");
     n.fetchNews().then((lst) => context.read<ListNewsProvider>().fetchListNews(lst[0],lst[1],lst[2],lst[3])
     );
+    n.filterNewsByUser(userId);
+    n.fetchOpinionNews().then((lst) => context.read<ListNewsProvider>().fetchOpinionListNews(lst));
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(

@@ -31,10 +31,11 @@ class ButtonWidget extends StatelessWidget {
           width: width,
           height: height,
           decoration: BoxDecoration(
+            border: Border.all(color: activeColor,width: 1.5),
             color: active ? activeColor : inactiveColor,
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.all(
-              Radius.circular(34.0),
+              Radius.circular(10.0),
             ),
           ),
         ));

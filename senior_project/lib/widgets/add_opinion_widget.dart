@@ -32,44 +32,119 @@ class _AddOpinionWidgetState extends State<AddOpinionWidget> {
   String voteColor = "";
   static const String rootImgPath = "lib/assets/images/";
   Future<void> addOpinionDailog(String newId) async {
+    double width = 65;
+    double height = 50;
+
     await showDialog<void>(
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return StatefulBuilder(
-            builder: (BuildContext context, setState) {
-              return AlertDialog(
-                title: Text('Add Cals Gain/Loss'),
-                content: SingleChildScrollView(
-                    child: Column(
-                  children: [
-                    InkWell(
-                        onTap: () {
-                          print("here is clicked");
-                          setState(() {
-                            voteColor = '2';
-                          });
-                          
-                          print(voteColor);
-                        },
-                        child: Container(
-                          child: Text('button'),
-                          margin: EdgeInsets.all(5.0),
-                          width: 100,
-                          height: 100,
-                          decoration: BoxDecoration(
-                            color: voteColor == '2' ? Colors.green : Colors.red,
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(1.0),
-                            ),
-                          ),
-                        )),
-                  ],
-                )),
-              );
-            }
-          );
+          return StatefulBuilder(builder: (BuildContext context, setState) {
+            return AlertDialog(
+              title: Text('Please select of the options below'),
+              content: SingleChildScrollView(
+                  child: ListBody(
+                children: [
+                  Text(
+                    'If you are certain clicking Ok or click cancel to cancel the voting.',
+                    style: TextStyle(fontSize: 12),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ButtonWidget(
+                          onTap: () {
+                            setState(() {
+                              voteColor = '0';
+                            });
+                          },
+                          activeColor: kNeutral,
+                          inactiveColor: kWhite,
+                          active: voteColor == '0',
+                          widget: voteColor == '0'
+                              ? Text(
+                                  'Neutral',
+                                  style: TextStyle(color: Colors.white),
+                                )
+                              : Text(
+                                  'Neutral',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                          height: height,
+                          width: width),
+                      ButtonWidget(
+                          onTap: () {
+                            setState(() {
+                              voteColor = '1';
+                            });
+                          },
+                          activeColor: kYellow,
+                          inactiveColor: kWhite,
+                          active: voteColor == '1',
+                          widget: voteColor == '1'
+                              ? Text(
+                                  'Yellow',
+                                  style: TextStyle(color: Colors.white),
+                                )
+                              : Text(
+                                  'Yellow',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                          height: height,
+                          width: width),
+                      ButtonWidget(
+                          onTap: () {
+                            setState(() {
+                              voteColor = '2';
+                            });
+                          },
+                          activeColor: kRed,
+                          inactiveColor: kWhite,
+                          active: voteColor == '2',
+                          widget: voteColor == '2'
+                              ? Text(
+                                  'Red',
+                                  style: TextStyle(color: Colors.white),
+                                )
+                              : Text(
+                                  'Red',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                          height: height,
+                          width: width),
+                    ],
+                  ),
+      
+                ],
+              )),
+              actions: [
+                 TextButton(
+                          onPressed: () {
+                            setState(() {
+                              voteColor = "";
+                            });
+                            Navigator.pop(context);
+                          },
+                          child: Text('Cancel')),
+                            TextButton(
+                          onPressed: () async {
+                            String userId = UserSharedPreference.getUser()[0];
+                            await News(id: 'aa', title: 'ff')
+                                .addOpinion(voteColor, newId, userId)
+                                .then((value) => print(value));
+                             setState(() {
+                              voteColor = "";
+                            });
+                            Navigator.pushNamed(context, '/home');
+                          },
+                          child: Text('Ok')),
+              ],
+            );
+          });
         });
   }
 
@@ -153,7 +228,6 @@ class _AddOpinionWidgetState extends State<AddOpinionWidget> {
                           borderRadius: BorderRadius.all(Radius.circular(15.0)),
                         ),
                         onPressed: () {
-                        
                           addOpinionDailog(widget.newsItem.id);
                         },
                         child: Text(
