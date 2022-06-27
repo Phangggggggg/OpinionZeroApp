@@ -30,13 +30,14 @@ class ListNewsProvider with ChangeNotifier {
 
   void fetchOpinionListNews(List<News> list) {
     List<String> filterOpinionNews = UserSharedPreference.getFilterListNews();
+
     if (filterOpinionNews.isNotEmpty) {
       for (String newsId in filterOpinionNews) {
         list.removeWhere((element) => element.id == newsId);
       }
-      opinionListNews = list;
-      notifyListeners();
     }
+    opinionListNews = list;
+    notifyListeners();
   }
 
   void filterList(String value) {

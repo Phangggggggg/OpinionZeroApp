@@ -18,11 +18,17 @@ class UserSharedPreference {
   }
 
   static List<String> getUser() {
-    return _preferences.getStringList(_keyUser)!;
+    if (_preferences.getStringList(_keyUser) != null) {
+      return _preferences.getStringList(_keyUser)!;
+    }
+    return [];
   }
 
   static List<String> getFilterListNews() {
-    return _preferences.getStringList(_keyFilterNews)!;
+    if(_preferences.getStringList(_keyFilterNews) != null){
+      return _preferences.getStringList(_keyFilterNews)!;
+    }
+    return [];
   }
 
   static void deleteFilterListNews() async {

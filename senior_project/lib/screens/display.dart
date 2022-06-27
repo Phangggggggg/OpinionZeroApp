@@ -103,14 +103,6 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
         SearchBarWidget(),
         Container(
           child: TabBar(
-              // overlayColor: MaterialStateProperty.resolveWith<Color?>(
-              //   (Set<MaterialState> states) {
-              //     if (states.contains(MaterialState.hovered))
-              //       return Colors.amberAccent; //<-- SEE HERE
-              //     return null;
-              //   },
-              // ),
-              // indicatorColor: Colors.lime,
               indicatorSize: TabBarIndicatorSize.values[0],
               labelColor: Colors.black12,
               unselectedLabelColor: Colors.grey,

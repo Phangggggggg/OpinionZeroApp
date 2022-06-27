@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: GetMaterialApp(
-        initialRoute: UserSharedPreference.getUser() != null ? '/home':'/',
+        initialRoute: UserSharedPreference.getUser().isNotEmpty ? '/home':'/',
         getPages: [
           GetPage(name: '/', page: () => SplashScreen()),
           GetPage(name: '/login', page: () => Login()),
