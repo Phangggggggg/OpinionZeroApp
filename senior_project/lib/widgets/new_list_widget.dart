@@ -54,29 +54,29 @@ class NewsListWidget extends StatelessWidget {
     return Scrollbar(
       child: ListView.builder(
         itemBuilder: (ctx, index) {
-          return Card(
-            child: Row(
-              // mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: Image(
-                      image: AssetImage(rootImgPath +
-                          newsList[index].imgPath.toString() +
-                          '.png'),
-                      width: 100,
-                      height: 100),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
+          return GestureDetector(
+            onTap: () {
                         print('tab');
                         _launchUrl(Uri.parse(newsList[index].link.toString()));
                       },
-                      child: Padding(
+            child: Card(
+              child: Row(
+                // mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Image(
+                        image: AssetImage(rootImgPath +
+                            newsList[index].imgPath.toString() +
+                            '.png'),
+                        width: 100,
+                        height: 100),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Container(
                           width: 200,
@@ -128,10 +128,10 @@ class NewsListWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           );
         },

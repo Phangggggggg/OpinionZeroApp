@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -12,6 +14,9 @@ import 'profile.dart';
 import '../widgets/search_bar_widget.dart';
 import 'package:provider/provider.dart';
 
+import 'package:google_fonts/google_fonts.dart'; 
+
+
 class Display extends StatefulWidget {
   @override
   State<Display> createState() => _DisplayState();
@@ -19,20 +24,38 @@ class Display extends StatefulWidget {
 
 class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
   late TabController _tabController;
- 
-  late final List<News> listNews =
-      Provider.of<ListNewsProvider>(context).filterListNews;
-
+  late PageController _pageController =
+      PageController(viewportFraction: 1, initialPage: 0);
+  late Timer _timer;
+  int _currentPage = 0;
 
   @override
   void initState() {
     _tabController = TabController(length: 4, vsync: this);
     _tabController.animateTo(2);
+    _timer = Timer.periodic(Duration(milliseconds: 5), (Timer timer) {
+      if (_currentPage < 5) {
+        _currentPage++;
+      } else {
+        _currentPage = 0;
+      }
+
+      _pageController.animateToPage(
+        _currentPage,
+        duration: Duration(milliseconds: 350),
+        curve: Curves.easeIn,
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _timer.cancel();
   }
 
   @override
   Widget build(BuildContext context) {
-  
     return Column(
       children: [
         Container(
@@ -50,10 +73,9 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0.0, 10, 0.0, 0.0),
-                child: 
-                Text(
+                child: Text(
                   'Breaking News',
-                  style: TextStyle(fontFamily: 'OoohBaby', fontSize: 20),
+                  // style: GoogleFonts.,
                 ),
               ),
             ],
@@ -62,7 +84,7 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
         Container(
             height: 180,
             child: PageView.builder(
-                controller: PageController(viewportFraction: 1),
+                controller: _pageController,
                 itemCount: 4,
                 itemBuilder: (_, i) {
                   return Container(
@@ -80,17 +102,16 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
                 })),
         SearchBarWidget(),
         Container(
-      
           child: TabBar(
-            // overlayColor: MaterialStateProperty.resolveWith<Color?>(
-            //   (Set<MaterialState> states) {
-            //     if (states.contains(MaterialState.hovered))
-            //       return Colors.amberAccent; //<-- SEE HERE
-            //     return null; 
-            //   },
-            // ), 
-            // indicatorColor: Colors.lime,
-            indicatorSize: TabBarIndicatorSize.values[0],
+              // overlayColor: MaterialStateProperty.resolveWith<Color?>(
+              //   (Set<MaterialState> states) {
+              //     if (states.contains(MaterialState.hovered))
+              //       return Colors.amberAccent; //<-- SEE HERE
+              //     return null;
+              //   },
+              // ),
+              // indicatorColor: Colors.lime,
+              indicatorSize: TabBarIndicatorSize.values[0],
               labelColor: Colors.black12,
               unselectedLabelColor: Colors.grey,
               controller: _tabController,
@@ -105,23 +126,22 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
                   ),
                 ),
                 Tab(
-                      child: Text(
-                        'Red',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                  child: Text(
+                    'Red',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
                 Tab(
-                      child: Text(
-                        'Yellow',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                    )
-                ),
+                    child: Text(
+                  'Yellow',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
                 Tab(
                   child: Text(
                     'Neutral',

@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 class ListNewsProvider with ChangeNotifier {
 
   late List<News> opinionListNews = [];
-
   late List<News> listNews = [];
   late List<News> redListNews = [];
   late List<News> yellowListNews = [];
@@ -30,7 +29,11 @@ class ListNewsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  
+  void fetchOpinionListNews(List<News> list) {
+    opinionListNews = list;
+    notifyListeners();
+  }
+
 
   void filterList(String value) {
    

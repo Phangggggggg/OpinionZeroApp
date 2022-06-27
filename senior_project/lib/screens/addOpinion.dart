@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:senior_project/models/news.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:senior_project/providers/listnews_provider.dart';
 import '../widgets/list_opinion_news_widget.dart';
 
 class AddOpinion extends StatefulWidget {
@@ -18,19 +19,19 @@ class _AddOpinionState extends State<AddOpinion> {
   @override
   Widget build(BuildContext context) {
     News n = News(id: "xx", title: "rr");
-    n.fetchOpinionNews().then((lst) => listNews = lst);
-    return Column(
-      children: [
-        Container(
-          child: Text(
-            'Add Your Opinion',
-            style: TextStyle(fontSize: 30),
-          ),
-        ),
-        Container(
-          child: ListOpinionNewsWidget(listNews),
-        ),
-      ],
+    n.fetchOpinionNews().then((lst) => context.read<ListNewsProvider>().fetchOpinionListNews(lst));
+    return Consumer<ListNewsProvider>(
+      builder: (context,listNewsProvider, child) {
+        return Column(
+          children: [
+            Text(
+              'Add Your Opinion',
+              style: TextStyle(fontSize: 30),
+            ),
+            ListOpinionNewsWidget(listNewsProvider.opinionListNews),
+          ],
+        );
+      }
     );
   }
 }

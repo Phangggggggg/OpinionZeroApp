@@ -20,7 +20,6 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
       child: Column(
         children: [
           TextField(
-            
             decoration: InputDecoration(
               contentPadding: EdgeInsets.all(9),
               filled: true,

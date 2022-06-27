@@ -1,6 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:senior_project/db/apiUrl.dart';
+import 'package:senior_project/utils/user_shared_preference.dart';
 
 class User {
   Future<bool> createUser(String name, String username, String pwd) async {
@@ -15,7 +16,7 @@ class User {
             'password': pwd
           }));
       if (res.statusCode == 200) {
-         var resBody = res.body;
+        var resBody = res.body;
         var jsonBody = jsonDecode(resBody);
         if (jsonBody['status'] == 'add user success') {
           return true;
@@ -41,10 +42,13 @@ class User {
       if (res.statusCode == 200) {
         var resBody = res.body;
         var jsonBody = jsonDecode(resBody);
-        if (jsonBody['status'] == 'pass') {
-          return true;
+
+        if (jsonBody['status'] == 'fail') {
+          return false;
         }
-        return false;
+        var jsonUser = jsonBody['user'];
+        UserSharedPreference.setUser(jsonUser['id'], jsonUser['username'],jsonUser['email']);
+        return true;
       }
     } catch (e) {
       print(e);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/gestures.dart';
+import 'package:senior_project/utils/user_shared_preference.dart';
 import '../models/user.dart';
 import '/colors/colors.dart';
 
@@ -182,16 +183,14 @@ class _LoginState extends State<Login> {
                                   _message =
                                       "username : $uname\nPassword : $pwd";
                                 });
-                               
-                        
 
-                                // print(_userName);
-                                // print(_passWord);
-                                // print(_message);
                                 user
                                     .authUser(_userName, _passWord)
                                     .then((value) {
                                   if (value) {
+                                  
+                                    print(UserSharedPreference.getUser()
+                                        .toString());
                                     Get.toNamed('/home');
                                   } else {
                                     setState(() {
@@ -216,9 +215,9 @@ class _LoginState extends State<Login> {
                                   }
                                 });
                               }
-                               setState(() {
-                                  _autoValidate = true;
-                                });
+                              setState(() {
+                                _autoValidate = true;
+                              });
                             },
                             child: Text(
                               'Login',

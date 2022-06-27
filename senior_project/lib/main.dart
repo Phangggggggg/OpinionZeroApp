@@ -7,13 +7,17 @@ import 'package:senior_project/screens/profile.dart';
 import 'package:senior_project/screens/register.dart';
 import 'package:senior_project/screens/splash.dart';
 import 'package:provider/provider.dart';
+import 'package:senior_project/utils/user_shared_preference.dart';
 
 import 'screens/login.dart';
 import 'package:get/get.dart';
 import 'models/user.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
   Provider.debugCheckInvalidValueType = null;
+  await UserSharedPreference.init();
   runApp(const MyApp());
 }
 
@@ -31,9 +35,8 @@ class MyApp extends StatelessWidget {
           value: ListNewsProvider(),
         ),
       ],
-      
       child: GetMaterialApp(
-        initialRoute: '/',
+        initialRoute: UserSharedPreference.getUser() != null ? '/home':'/',
         getPages: [
           GetPage(name: '/', page: () => SplashScreen()),
           GetPage(name: '/login', page: () => Login()),

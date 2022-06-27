@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/foundation/key.dart';
+import 'package:senior_project/utils/user_shared_preference.dart';
 import '/widgets/icon_wiget.dart';
 import 'editProfile.dart';
 
@@ -107,8 +108,10 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                                             'Are you sure you want to Log Out?'),
                                         actions: [
                                           TextButton(
-                                              onPressed: () =>
-                                                  Get.toNamed('/login'),
+                                              onPressed: () {
+                                              UserSharedPreference.deleteUser();
+                                                  Get.toNamed('/login');
+                                              },
                                               child: Text('Yes')
                                           ), 
                                           TextButton(

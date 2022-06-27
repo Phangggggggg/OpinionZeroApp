@@ -87,4 +87,29 @@ class News {
     }
     return listOpinion;
   }
+
+   Future<bool> addOpinion(String xclass, String newsId, String userId) async {
+    try {
+      var res = await http.put(Uri.parse(ApiUrl.addOpinionUrl),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, String>{
+            'user_id': userId,
+            'news_id': newsId,
+            'xclass': xclass
+          }));
+      if (res.statusCode == 200) {
+        var resBody = res.body;
+        var jsonBody = jsonDecode(resBody);
+        if (jsonBody['status'] == 'add opinion success') {
+          return true;
+        }
+        return false;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    return false;
+  }
 }
