@@ -12,8 +12,11 @@ class UserSharedPreference {
     await _preferences.setStringList(_keyFilterNews, filterListNews);
   }
 
-  static Future setUser(String userId, String username, String email) async {
-    List<String> lst = [userId, username, email]; 
+  static Future setUser(String userId, String username, String email,String fullname,
+        String birthday,
+        String phone,
+        String city) async {
+    List<String> lst = [userId, username, email,fullname,birthday,phone,city]; 
     await _preferences.setStringList(_keyUser, lst);
   }
 
