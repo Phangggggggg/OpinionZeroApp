@@ -20,7 +20,7 @@ class _EditProfileState extends State<EditProfile> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               IconWidget(iconData: Icons.favorite_border, txt: 'Favorite'),
-              IconWidget(iconData: Icons.feed, txt: 'History'),
+              IconWidget(iconData: Icons.feed, txt: 'Voted History'),
               IconWidget(iconData: Icons.person, txt: 'About You'),
             ],
           ),

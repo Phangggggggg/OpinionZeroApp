@@ -72,14 +72,14 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 50, 9, 0.0),
               child: Text(
-                'Username',
+                UserSharedPreference.getUser()[1],
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(6, 10, 0.0, 0.0),
               child: Text(
-                'username@gmail.com',
+                UserSharedPreference.getUser()[2],
                 style: TextStyle(fontSize: 15),
               ),
             ),

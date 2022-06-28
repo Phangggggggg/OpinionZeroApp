@@ -13,7 +13,7 @@ class UserSharedPreference {
   }
 
   static Future setUser(String userId, String username, String email) async {
-    List<String> lst = [userId, username, email];
+    List<String> lst = [userId, username, email]; 
     await _preferences.setStringList(_keyUser, lst);
   }
 

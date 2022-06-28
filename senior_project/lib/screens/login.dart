@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/gestures.dart';
 import 'package:senior_project/utils/user_shared_preference.dart';
+import 'package:senior_project/widgets/logo_widget.dart';
 import '../models/user.dart';
 import '/colors/colors.dart';
+import 'package:google_fonts/google_fonts.dart'; 
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -36,16 +38,12 @@ class _LoginState extends State<Login> {
       child: RichText(
           text: TextSpan(children: [
         TextSpan(
-          text: 'Don\'t have account?  ',
-          style: TextStyle(
-            color: Colors.black,
-          ),
+          text: 'Don\'t have an account?  ',
+          style: GoogleFonts.montserrat(color: kBlackBrown) ,
         ),
         TextSpan(
-            text: 'Register',
-            style: TextStyle(
-              color: Colors.blue,
-            ),
+            text: 'Sign Up',
+            style: GoogleFonts.montserrat(color: kBlue,fontWeight: FontWeight.w600) ,
             recognizer: TapGestureRecognizer()
               ..onTap = () {
                 Get.toNamed('/register');
@@ -54,85 +52,64 @@ class _LoginState extends State<Login> {
     );
   }
 
+  Widget _buildLoginText() {
+    return Column(
+      children: [
+        Text("Welcome!",style: 
+        TextStyle(color: kBlackBrown,fontSize: 36, fontWeight: FontWeight.bold),),
+        SizedBox(height: 10,),
+        Text("To continue using this app,"),
+        Text("please sign in first.")
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade200.withOpacity(0.9999),
-      // appBar: AppBar(
-      //   title: Text(
-      //     "Sign In",
-      //     style: TextStyle(color: Colors.grey[800]),
-      //   ),
-      // ),
-      body: Stack(
-        children: [
-          Positioned(
-              right: 0,
-              left: 0,
-              child: Container(
-                width: double.maxFinite,
-                height: 250,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(20.0),
-                        bottomRight: Radius.circular(20.0)),
-                    color: kLightBlue),
-                child: Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Container(
-                      //   width: 80,
-                      //   height: 80,
-                      //   child: Image.asset('lib/assets/logo/logo.png')),
-                      Container(
-                          margin: EdgeInsets.fromLTRB(0.0, 45, 0, 0),
-                          child: Text(
-                            "Sign In",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 30),
-                          )),
-                      Text('Login your account in order to use the app.')
-                    ],
-                  ),
-                ),
-              )),
-          Positioned(
-            top: 150,
-            right: 0,
-            left: 0,
-            child: Container(
-              margin: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                  color: Colors.white),
-              width: double.maxFinite,
-              height: 350,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(8.0, 15, 10.0, 8.0),
-                child: Form(
-                  key: _formKey,
-                  autovalidateMode: _autoValidate
-                      ? AutovalidateMode.onUserInteraction
-                      : AutovalidateMode.disabled,
-                  child: ListView(
-                    children: [
+        backgroundColor: kWhite1,
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              
+              children: [
+                SizedBox(height: 56,),
+                Container( margin: const EdgeInsets.all(20),child: _buildLoginText()),
+                LogoWidget(height: 160, width: 160),
+                              // SizedBox(height: 26,),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(30.0,8.0,20.0,10.0),
+                  height: MediaQuery.of(context).size.height,
+                  child: Form(
+                    key: _formKey,
+                    autovalidateMode: _autoValidate
+                        ? AutovalidateMode.onUserInteraction
+                        : AutovalidateMode.disabled,
+                    child: ListView(children: [
                       Padding(
                         padding: const EdgeInsets.all(9.0),
                         child: TextFormField(
+                          
                           controller: usernameController,
-                          // textInputAction: TextInputAc,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15.0)),
+                                                      filled: true,
+                                      
+
+                           fillColor: kWhite,
+                            focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: kWhite, width: 2.0),
+                  borderRadius: BorderRadius.circular(15.0)
+                ),
+                              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: kWhite, width: 2.0),
+                  borderRadius: BorderRadius.circular(15.0)
+                ),
                             labelText: "Username",
                             // errorText: _errText,
                             hintText: 'Enter your Username',
-                            prefixIcon: Icon(Icons.person_outline),
+                            prefixIcon: Icon(Icons.person_outline, ),
                           ),
-
                           validator: (text) {
                             print(text);
                             if (text == null || text.isEmpty) {
@@ -141,14 +118,26 @@ class _LoginState extends State<Login> {
                           },
                         ),
                       ),
-                      Padding(
+                              Padding(
                         padding: const EdgeInsets.all(9.0),
                         child: TextFormField(
                           controller: passwordController,
                           obscureText: true,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15.0)),
+                                                      filled: true,
+                              
+                             fillColor: kWhite,
+                             iconColor: kBlue,
+                              focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: kWhite, width: 2.0),
+                  borderRadius: BorderRadius.circular(15.0)
+                ),
+                              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: kWhite, width: 2.0),
+                  borderRadius: BorderRadius.circular(15.0)
+                ),
+                         
+                 
                             labelText: "Password",
                             hintText: 'Enter your Password',
                             prefixIcon: Icon(Icons.key),
@@ -161,69 +150,67 @@ class _LoginState extends State<Login> {
                           },
                         ),
                       ),
-                      Padding(
+                          Padding(
                         padding: const EdgeInsets.all(9.0),
-                        child: Center(
-                          child: MaterialButton(
-                            minWidth: 300.0,
-                            height: 50.0,
-                            color: kDarkBlue,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15.0)),
-                            ),
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                // validate
-                                var uname = usernameController.text;
-                                var pwd = passwordController.text;
-                                setState(() {
-                                  _userName = uname;
-                                  _passWord = pwd;
-                                  _message =
-                                      "username : $uname\nPassword : $pwd";
-                                });
-
-                                user
-                                    .authUser(_userName, _passWord)
-                                    .then((value) {
-                                  if (value) {
-                                  
-                                    print(UserSharedPreference.getUser()
-                                        .toString());
-                                    Get.toNamed('/home');
-                                  } else {
-                                    setState(() {
-                                      _autoValidate = true;
-                                      resetTextField();
-                                    });
-                                    print("fail authentication");
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                        title: Text("Fail Authentication"),
-                                        content: Text(
-                                            'Fail! Please Register your account first before Login'),
-                                        actions: [
-                                          TextButton(
-                                              onPressed: () =>
-                                                  Navigator.pop(context),
-                                              child: Text('OK'))
-                                        ],
-                                      ),
-                                    );
-                                  }
-                                });
-                              }
+                        child: MaterialButton(
+                          minWidth: 300.0,
+                          height: 50.0,
+                          color: kDarkBlue,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0)),
+                          ),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              // validate
+                              var uname = usernameController.text;
+                              var pwd = passwordController.text;
                               setState(() {
-                                _autoValidate = true;
+                                _userName = uname;
+                                _passWord = pwd;
+                                _message =
+                                    "username : $uname\nPassword : $pwd";
                               });
-                            },
-                            child: Text(
-                              'Login',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            ),
+
+                              user
+                                  .authUser(_userName, _passWord)
+                                  .then((value) {
+                                if (value) {
+                                
+                                  print(UserSharedPreference.getUser()
+                                      .toString());
+                                  Get.toNamed('/home');
+                                } else {
+                                  setState(() {
+                                    _autoValidate = true;
+                                    resetTextField();
+                                  });
+                                  print("fail authentication");
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: Text("Fail Authentication"),
+                                      content: Text(
+                                          'Fail! Please Register your account first before Login'),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () =>
+                                                Navigator.pop(context),
+                                            child: Text('OK'))
+                                      ],
+                                    ),
+                                  );
+                                }
+                              });
+                            }
+                            setState(() {
+                              _autoValidate = true;
+                            });
+                          },
+                          child: Text(
+                            'Login',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 15),
                           ),
                         ),
                       ),
@@ -231,14 +218,12 @@ class _LoginState extends State<Login> {
                         padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                         child: _buildRegisterWith(),
                       )
-                    ],
+                    ]),
                   ),
                 ),
-              ),
+              ],
             ),
           ),
-        ],
-      ),
-    );
+        ));
   }
 }

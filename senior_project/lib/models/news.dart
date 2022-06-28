@@ -133,7 +133,6 @@ class News {
             (element) => newList.add(element['news_id']),
           );
           UserSharedPreference.setFilterNews(newList);
-          // print(newList);
           return true;
         }
         return false;

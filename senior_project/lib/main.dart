@@ -9,7 +9,7 @@ import 'package:senior_project/screens/register.dart';
 import 'package:senior_project/screens/splash.dart';
 import 'package:provider/provider.dart';
 import 'package:senior_project/utils/user_shared_preference.dart';
-
+import 'package:google_fonts/google_fonts.dart'; 
 import 'screens/login.dart';
 import 'package:get/get.dart';
 import 'models/user.dart';
@@ -37,6 +37,11 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: GetMaterialApp(
+        theme: ThemeData(
+    
+          textTheme: GoogleFonts.montserratTextTheme(
+          Theme.of(context).textTheme,
+        )),
         initialRoute: UserSharedPreference.getUser().isNotEmpty ? '/home':'/',
         getPages: [
           GetPage(name: '/', page: () => SplashScreen()),
