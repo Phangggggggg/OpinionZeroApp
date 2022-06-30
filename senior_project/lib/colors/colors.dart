@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+const Color kDarkerBlue = Color.fromARGB(255, 38, 43, 91);
 const Color kDarkBlue = Color(0xff4951AF);
 const Color kLightBlue = Color(0xff87D1F5);
 const Color kBlue = Color(0xff89AFF4);

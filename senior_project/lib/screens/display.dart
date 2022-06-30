@@ -87,23 +87,29 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
                     'Breaking News',
                     style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: kBlackBrown),
                   ),
-                //  Container(
-                //   width: 100,
-                //   height: 3,
-                //   color: kDarkBlue,
-                //  ),
-                //  Container(
-                //   width: 110,
-                //   height: 4,
-                //   color: kLightBlue,
-                //  )
+                 Padding(
+                   padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 0.0),
+                   child: Container(
+                    width: 100,
+                    height: 4,
+                    color: kDarkBlue,
+                   ),
+                 ),
+                 Padding(
+                   padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+                   child: Container(
+                    width: 110,
+                    height: 5,
+                    color: kLightBlue,
+                   ),
+                 )
                 ],
               ),
               
             ),
           ),
           Container(
-              height: 180,
+              height: 190,
               child: PageView.builder(
                   controller: _pageController,
                   itemCount: 4,

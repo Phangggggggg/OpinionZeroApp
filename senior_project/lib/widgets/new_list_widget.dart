@@ -108,7 +108,7 @@ class NewsListWidget extends StatelessWidget {
                                               fontSize: 16,
                                               fontWeight: FontWeight.w500,
                                               overflow: TextOverflow.clip,
-                                              color: kBlackBrown))),
+                                              color: kDarkerBlue))),
                                 ),
                                 Row(
                                   children: [

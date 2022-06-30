@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -10,6 +12,8 @@ import 'package:senior_project/utils/user_shared_preference.dart';
 import '../models/news.dart';
 import '../screens/addOpinion.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class AddOpinionWidget extends StatefulWidget {
   News newsItem;
@@ -33,8 +37,19 @@ void changeVote(String voteColor, String val) {
 class _AddOpinionWidgetState extends State<AddOpinionWidget> {
   String voteColor = "";
   static const String rootImgPath = "lib/assets/images/";
+    String formatDate(String date) {
+    String now;
+    try {
+      DateTime d = DateTime.parse(date);
+      now = DateFormat.yMMMd().format(d);
+    } catch (e) {
+      now = "";
+    }
+
+    return now;
+  }
   Future<void> addOpinionDailog(String newId) async {
-    double width = 65;
+    double width = 71;
     double height = 50;
 
     await showDialog<void>(
@@ -59,6 +74,7 @@ class _AddOpinionWidgetState extends State<AddOpinionWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ButtonWidget(
+
                           onTap: () {
                             setState(() {
                               voteColor = '0';
@@ -130,7 +146,7 @@ class _AddOpinionWidgetState extends State<AddOpinionWidget> {
                       });
                       Navigator.pop(context);
                     },
-                    child: Text('Cancel')),
+                    child: Text('Cancel', style: TextStyle(color: kBlue))),
                 TextButton(
                     onPressed: () async {
                       String userId = UserSharedPreference.getUser()[0];
@@ -143,7 +159,7 @@ class _AddOpinionWidgetState extends State<AddOpinionWidget> {
                      
                       Navigator.pushNamed(context, '/home');
                     },
-                    child: Text('Ok')),
+                    child: Text('Ok',style: TextStyle(color:kDarkBlue ),)),
               ],
             );
           });
@@ -171,42 +187,81 @@ class _AddOpinionWidgetState extends State<AddOpinionWidget> {
                       fit: BoxFit.cover)),
             ),
           ),
+
           Positioned(
             top: 280,
             child: Container(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
                       height: 20,
                     ),
-                    Text('${widget.newsItem.title.toString()}',
-                        style: TextStyle(
-                          fontSize: 18,
-                          overflow: TextOverflow.clip,
-                          fontWeight: FontWeight.bold,
-                        )),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      '${widget.newsItem.description.toString()}',
-                      style: TextStyle(
-                        fontSize: 14,
-                        overflow: TextOverflow.clip,
+                    Padding(
+                      padding: const  EdgeInsets.fromLTRB(180.0, 0.0, 0.0, 8.0),
+                      child: Container(    
+                        height: 40,
+                        width: 160,
+                        decoration: BoxDecoration(
+                          color: kDarkBlue,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20.0),
+                          ),
+                         ),
+                         child: Row(
+                          children: [
+                            Padding(
+                            padding: const EdgeInsets.fromLTRB(17.0, 8, 8, 10),
+                              child: Icon(Icons.calendar_month_outlined, color: Colors.white),
+                            ), 
+                            Text(formatDate(widget.newsItem.date.toString()),
+                            style: 
+                                TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  overflow: TextOverflow.clip,
+                                  fontWeight: FontWeight.bold,
+                                )
+                             )
+                            ]
+                          ),
                       ),
                     ),
-                    SizedBox(
-                      height: 20,
+                    Padding(
+                    padding: const EdgeInsets.fromLTRB(17.0, 8, 8, 10),
+                    child: Text('${widget.newsItem.title.toString()}',
+                        style: GoogleFonts.mitr(textStyle:  TextStyle(
+                          fontSize: 18,
+                          overflow: TextOverflow.clip,
+                          fontWeight: FontWeight.w400,
+                        ),),
+                        
+                       ),
                     ),
-                    Row(children: [
+
+                    Padding(
+                    padding: const EdgeInsets.fromLTRB(17.0, 0.0, 8, 10.0),
+                    child: Text(
+                      '${widget.newsItem.description.toString()}',
+                      style: GoogleFonts.mitr(textStyle: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w200,
+                        overflow: TextOverflow.clip,
+                      )),
+                      ),
+                    ),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
                       Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: MaterialButton(
                             minWidth: 100.0,
-                            height: 50.0,
-                            color: Colors.grey,
+                            height: 45.0,
+                            color: kBlue,
                             shape: const RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(15.0)),
@@ -220,23 +275,25 @@ class _AddOpinionWidgetState extends State<AddOpinionWidget> {
                               style:
                                   TextStyle(color: Colors.white, fontSize: 15),
                             ),
-                          )),
+                          )
+                      ),
+
                       Center(
-                          child: MaterialButton(
-                        minWidth: 100.0,
-                        height: 50.0,
-                        color: Colors.grey,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                        ),
-                        onPressed: () {
-                          addOpinionDailog(widget.newsItem.id);
-                        },
-                        child: Text(
-                          'Vote',
-                          style: TextStyle(color: Colors.white, fontSize: 15),
-                        ),
-                      ))
+                        child: MaterialButton(
+                          minWidth: 100.0,
+                          height: 45.0,
+                          color: kLightBlue,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                          ),
+                          onPressed: () {
+                            addOpinionDailog(widget.newsItem.id);
+                          },
+                          child: Text(
+                            'Vote',
+                            style: TextStyle(color: Colors.white, fontSize: 15),
+                          ),
+                        ))
                     ])
                   ],
                 ),
@@ -244,7 +301,7 @@ class _AddOpinionWidgetState extends State<AddOpinionWidget> {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 253, 255, 255),
+                  color: kWhite1,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30.0),
                       topRight: Radius.circular(30.0))),

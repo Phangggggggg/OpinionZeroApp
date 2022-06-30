@@ -35,7 +35,6 @@ class ListOpinionNewsWidget extends StatelessWidget {
           itemBuilder: (ctx, index) {
             return GestureDetector(
               onTap: () {
-                        print(newsList[index].id);
                         Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -43,54 +42,57 @@ class ListOpinionNewsWidget extends StatelessWidget {
                             AddOpinionWidget(newsItem: newsList[index])));
                       },
               child: Card(
+                 color: kWhite1,
+                  elevation: 0,
                   child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.all(2.0),
+                      padding: const EdgeInsets.all(8.0),
+                      child: ClipRRect(
+                      borderRadius: BorderRadius.circular(6.0),
                       child: Image(
                           image: AssetImage(rootImgPath +
                               newsList[index].imgPath.toString() +
                               '.png'),
-                          width: 100,
-                          height: 100),
+                          width: 125,
+                          height: 70, 
+                          fit:BoxFit.fill ),
+                      )
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Container(
-                              width: 200,
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child:
-                                          Text(
-                                            newsList[index].title.toString(),
-                                            style: GoogleFonts.mitr(textStyle: TextStyle(
-                                              fontSize: 16, fontWeight: FontWeight.w500, overflow: TextOverflow.clip, color:  kBlackBrown
-                                          )
-                                        ),
+                        Container(
+                            width: 200,
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(10.0, 5.0, 0.0, 8.0),
+                                    child:
+                                        Text(
+                                          newsList[index].title.toString(),
+                                          style: GoogleFonts.mitr(textStyle: TextStyle(
+                                            fontSize: 16, fontWeight: FontWeight.w500, overflow: TextOverflow.clip, color:  kDarkerBlue
+                                        )
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: Text(
-                                        formatDate(
-                                            newsList[index].date.toString()),
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          overflow: TextOverflow.clip,
-                                          // fontWeight: FontWeight.bold,
-                                        ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 5.0),
+                                    child: Text(
+                                      formatDate(
+                                          newsList[index].date.toString()),
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        overflow: TextOverflow.clip,
+                                        // fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                  ]) // column
-                              ), //Container
-                        ),
+                                  ),
+                                ]) // column
+                            ),
                       ],
                     ),
                   ]

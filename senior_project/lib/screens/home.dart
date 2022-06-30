@@ -60,16 +60,16 @@ class _HomeState extends State<Home> {
               backgroundColor: Colors.white,
               elevation: 0,
               items: [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.article),
+                const BottomNavigationBarItem(
+                  icon: const Icon(Icons.article),
                   label: 'Article',
                 ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.question_answer),
+               const BottomNavigationBarItem(
+                  icon: const Icon(Icons.question_answer),
                   label: 'Opinion',
                 ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.account_circle_rounded),
+                const BottomNavigationBarItem(
+                  icon: const Icon(Icons.account_circle_rounded),
                   label: 'Profile',
                 ),
               ],
