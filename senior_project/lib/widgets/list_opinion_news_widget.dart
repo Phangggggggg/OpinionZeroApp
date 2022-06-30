@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'add_opinion_widget.dart';
+import '/colors/colors.dart';
+import 'package:google_fonts/google_fonts.dart'; 
 
 class ListOpinionNewsWidget extends StatelessWidget {
   final List<News> newsList;
@@ -66,12 +68,13 @@ class ListOpinionNewsWidget extends StatelessWidget {
                                     Padding(
                                       padding: const EdgeInsets.all(5.0),
                                       child:
-                                          Text(newsList[index].title.toString(),
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                overflow: TextOverflow.clip,
-                                                fontWeight: FontWeight.bold,
-                                              )),
+                                          Text(
+                                            newsList[index].title.toString(),
+                                            style: GoogleFonts.mitr(textStyle: TextStyle(
+                                              fontSize: 16, fontWeight: FontWeight.w500, overflow: TextOverflow.clip, color:  kBlackBrown
+                                          )
+                                        ),
+                                      ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.all(5.0),

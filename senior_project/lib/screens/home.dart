@@ -45,6 +45,7 @@ class _HomeState extends State<Home> {
         (lst) => context.read<ListNewsProvider>().fetchOpinionListNews(lst));
     return SafeArea(
       child: Scaffold(
+         backgroundColor: kWhite1,
         body: SingleChildScrollView(
           child: _widgetOptions.elementAt(_selectedIndex),
         ),

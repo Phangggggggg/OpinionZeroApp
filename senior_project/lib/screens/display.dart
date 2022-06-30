@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-
+import 'package:senior_project/colors/colors.dart';
+import '/colors/colors.dart';
 import 'package:senior_project/models/news.dart';
 import 'package:get/get.dart';
 import 'package:senior_project/providers/listnews_provider.dart';
@@ -26,32 +27,32 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late PageController _pageController =
       PageController(viewportFraction: 1, initialPage: 0);
-  late Timer _timer;
-  int _currentPage = 0;
+  // late Timer _timer;
+  // int _currentPage = 0;
 
   @override
   void initState() {
     _tabController = TabController(length: 4, vsync: this);
     _tabController.animateTo(2);
-    _timer = Timer.periodic(Duration(milliseconds: 5), (Timer timer) {
-      if (_currentPage < 5) {
-        _currentPage++;
-      } else {
-        _currentPage = 0;
-      }
+    // _timer = Timer.periodic(Duration(milliseconds: 6), (Timer timer) {
+    //   if (_currentPage < 5) {
+    //     _currentPage++;
+    //   } else {
+    //     _currentPage = 0;
+    //   }
 
-      _pageController.animateToPage(
-        _currentPage,
-        duration: Duration(milliseconds: 350),
-        curve: Curves.easeIn,
-      );
-    });
+    //   _pageController.animateToPage(
+    //     _currentPage,
+    //     duration: Duration(milliseconds: 350),
+    //     curve: Curves.easeIn,
+    //   );
+    // });
   }
 
   @override
   void dispose() {
     super.dispose();
-    _timer.cancel();
+    // _timer.cancel();
   }
 
   @override
@@ -75,7 +76,7 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
                 padding: const EdgeInsets.fromLTRB(0.0, 10, 0.0, 0.0),
                 child: Text(
                   'Breaking News',
-                  // style: GoogleFonts.,
+                  style: TextStyle(fontSize: 20),
                 ),
               ),
             ],
@@ -104,44 +105,46 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
         Container(
           child: TabBar(
               indicatorSize: TabBarIndicatorSize.values[0],
-              labelColor: Colors.black12,
-              unselectedLabelColor: Colors.grey,
+              labelColor: kDarkBlue,
+              unselectedLabelColor: kBlackBrown,
+              indicatorColor: kDarkBlue,
               controller: _tabController,
               tabs: [
                 Tab(
                   child: Text(
                     'All',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
+                    style:GoogleFonts.mitr(textStyle: const TextStyle(
+                                              fontSize: 16, 
+                                          ),
                     ),
                   ),
                 ),
                 Tab(
                   child: Text(
                     'Red',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
+                    style: GoogleFonts.mitr(textStyle: const TextStyle(
+                                              fontSize: 16,  
+                                          ),
                     ),
-                  ),
+                  ), 
                 ),
                 Tab(
                     child: Text(
                   'Yellow',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )),
+                  style: GoogleFonts.mitr(textStyle: const TextStyle(
+                                              fontSize: 16, 
+                                          ),
+                        )
+                    ),
+                ),
                 Tab(
                   child: Text(
                     'Neutral',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                    style: GoogleFonts.mitr(textStyle: const TextStyle(
+                                              fontSize: 16, 
+                                          ),
+                        )
+                    )
                 )
               ]),
         ),

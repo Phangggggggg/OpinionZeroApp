@@ -6,6 +6,8 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:senior_project/utils/user_shared_preference.dart';
 import '/widgets/icon_wiget.dart';
 import 'editProfile.dart';
+import '/colors/colors.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -40,72 +42,106 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Padding(
-          padding: const EdgeInsets.fromLTRB(80, 0.0, 0.0, 0.0),
-          child: Row(
-            children: [
-              // IconButton(icon: Icon(Icons.access_time_filled  , size: 30, color: Colors.grey[800] ,),onPressed: (){},),
-              Text(
-                "Account",
-                style: TextStyle(color: Colors.white),
-              ),
-            ],
-          ),
-        ),
-        backgroundColor: Color.fromARGB(255, 186, 185, 185),
-      ),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0.0, 30, 50, 0.0),
-              child: IconButton(
-                icon: Icon(
-                  Icons.account_circle_rounded,
-                  size: 80,
-                  color: Colors.grey[800],
-                ),
-                onPressed: () {},
+            
+            Container(
+
+              
+              // decoration: BoxDecoration(
+              //   image: DecorationImage(
+              //     image: AssetImage("lib/assets/image.jpeg"),
+              //     fit: BoxFit.cover,
+              // ),
+              // ),
+              decoration: BoxDecoration(
+                color: kOpcBlue,
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40.0), bottomRight: Radius.circular(40.0)) 
+              ),
+              height: 180,
+              width: double.maxFinite,
+              
+              child: Row(
+               
+                children: [
+                  
+                 Padding(
+                   padding: const EdgeInsets.fromLTRB(10, 0.0, 85, 80),
+                   child: IconButton(
+                                icon: Icon(
+                                  Icons.arrow_back_ios_new_outlined ,
+                                  color: kBlackBrown,
+                                  size: 25,
+                                ),
+                                onPressed: () {
+                                  print('back button is pressed');
+                                  Get.back();
+                                },
+                    ),
+                 ),
+             
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+
+         
+                        Padding(
+                          padding: const EdgeInsets.only(top:40.0),
+                          child: Icon(
+                            Icons.account_circle_rounded,
+                            size: 80,
+                            color: kBlackBrown,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 3,
+                        ),
+                      
+                      Text(
+                        UserSharedPreference.getUser()[1],
+                        style: const TextStyle(
+                          color: kBlackBrown,
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 50, 9, 0.0),
-              child: Text(
-                UserSharedPreference.getUser()[1],
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(6, 10, 0.0, 0.0),
-              child: Text(
-                UserSharedPreference.getUser()[2],
-                style: TextStyle(fontSize: 15),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0.00, 20, 0.0, 0.0),
+              padding: const EdgeInsets.fromLTRB(0.00, 10.0, 0.0, 0.0),
               child: Container(
+              
                 child: TabBar(
                     labelColor: Colors.black,
                     unselectedLabelColor: Colors.grey,
                     controller: _tabController,
+                    indicatorColor: kDarkBlue,
+        
                     tabs: [
                       Tab(
-                        text: 'Edit profile',
+                        child: Text('About You',
+                            style: GoogleFonts.montserrat(
+                                color: kBlackBrown,
+                                fontWeight: FontWeight.w600)),
                       ),
                       Tab(
                         // text: 'Log out',
 
                         child: GestureDetector(
-                            child: Text('Log out'),
+                            child: Text('Log out',
+                                style: GoogleFonts.montserrat(
+                                    color: kBlackBrown,
+                                    fontWeight: FontWeight.w600)),
                             onTap: () {
                               showDialog(
                                 context: context,
                                 builder: (context) => AlertDialog(
                                   title: Text("Log Out"),
-                                  content:
-                                      Text('Are you sure you want to Log Out?'),
+                                  content: Text(
+                                      'Are you sure you want to Log Out?'),
                                   actions: [
                                     TextButton(
                                         onPressed: () {
@@ -116,7 +152,8 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                                         },
                                         child: Text('Yes')),
                                     TextButton(
-                                        onPressed: () => Navigator.pop(context),
+                                        onPressed: () =>
+                                            Navigator.pop(context),
                                         child: Text('No')),
                                   ],
                                 ),

@@ -81,13 +81,6 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  // Widget createDialog(BuildContext context) => CupertinoAlertDialog(
-  //   title: Text("Register Confirmation",
-  //   style: GoogleFonts.montserrat(color: kBlue,fontWeight: FontWeight.w600)),
-  //   content: Text("You are successfully register your account",
-  //   style: GoogleFonts.montserrat(color: kBlue,fontWeight: FontWeight.w600)),
-
-  // );
 
   Future<void> _showMyDialog() async {
     return showDialog<void>(
@@ -306,19 +299,26 @@ class _RegisterState extends State<Register> {
                                         );
 
                                         return date;
-                                      })),
-                            ),
+                                      },
+                                      validator: (text) {
+                                      if (text == null) {
+                                        return 'Enter your Birthday';
+                                      }
+                                      return null;
+                                    },
+                                  )
+                                ),       ),
                           ]),
                           Row(
                             children: <Widget>[
                               Flexible(
                                 child: Padding(
-                                  padding: const EdgeInsets.all(7.0),
+                                  padding:  const EdgeInsets.all(7.0),
                                   child: TextFormField(
                                     controller: phoneNoController,
                                     decoration: InputDecoration(
                                       contentPadding:
-                                          EdgeInsets.symmetric(vertical: 15.0),
+                                          const EdgeInsets.symmetric(vertical: 15.0),
                                       filled: true,
                                       iconColor: kDarkBlue,
                                       fillColor: kWhite,
@@ -421,24 +421,24 @@ class _RegisterState extends State<Register> {
                               obscureText: true,
                               decoration: InputDecoration(
                                 contentPadding:
-                                    EdgeInsets.symmetric(vertical: 15.0),
+                                    const EdgeInsets.symmetric(vertical: 15.0),
                                 filled: true,
                                 iconColor: kDarkBlue,
                                 fillColor: kWhite,
                                 focusedBorder: OutlineInputBorder(
                                     borderSide:
-                                        BorderSide(color: kWhite, width: 2.0),
+                                        const BorderSide(color: kWhite, width: 2.0),
                                     borderRadius: BorderRadius.circular(15.0)),
                                 enabledBorder: OutlineInputBorder(
                                     borderSide:
-                                        BorderSide(color: kWhite, width: 2.0),
+                                        const BorderSide(color: kWhite, width: 2.0),
                                     borderRadius: BorderRadius.circular(15.0)),
                                 labelText: "Password",
                                 hintText: 'Enter your Password',
-                                prefixIcon: Icon(Icons.key),
+                                prefixIcon: const Icon(Icons.key),
                               ),
 
-                              style: TextStyle(fontSize: 15),
+                              style: const TextStyle(fontSize: 15),
 
                               validator: (text) {
                                 if (text == null || text.isEmpty) {
@@ -504,7 +504,7 @@ class _RegisterState extends State<Register> {
                                           showDialog(
                                             context: context,
                                             builder: (context) => AlertDialog(
-                                              title: Text(
+                                              title: const Text(
                                                   "Fail Username Already Exists"),
                                               content: Text(
                                                   'Fail! Can\'t create new user account. Username already exists'),

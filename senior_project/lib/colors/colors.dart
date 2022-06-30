@@ -10,3 +10,5 @@ const Color kRed = Color(0xfffD222D);
 const Color kNeutral = Colors.green;
 const Color kWhite1 = Color(0xFFF5F5F5);
 const Color kWhite = Colors.white;
+
+const Color kOpcBlue = Color.fromARGB(182, 135, 208, 245);

@@ -23,14 +23,16 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
             decoration: InputDecoration(
               contentPadding: EdgeInsets.all(9),
               filled: true,
-              fillColor: Color.fromARGB(255, 215, 215, 216),
+              fillColor: Color.fromARGB(255, 232, 231, 231),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(40.0),
-                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(15.0),
+                borderSide: BorderSide(color: Colors.grey, width: 0.0),
+               
               ),
               hintText: "Search",
               prefixIcon: Icon(Icons.search, color: Color.fromARGB(255, 92, 91, 91)),
-              hintStyle: TextStyle(fontSize: 14)
+              hintStyle: TextStyle(fontSize: 16),
+              suffixIcon: Icon(Icons.filter_list, color: Color.fromARGB(255, 92, 91, 91)),
             ),
             // controller: _textcontrollerTEXT,
             onChanged: (value) {

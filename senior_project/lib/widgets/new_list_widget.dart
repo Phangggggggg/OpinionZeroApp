@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../models/news.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // import 'package:url_launcher/url_launcher.dart';
 class NewsListWidget extends StatelessWidget {
@@ -87,11 +88,11 @@ class NewsListWidget extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: Text(newsList[index].title.toString(),
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      overflow: TextOverflow.clip,
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                                    style: GoogleFonts.mitr(textStyle: const TextStyle(
+                                              fontSize: 16, fontWeight: FontWeight.w500, overflow: TextOverflow.clip, color:  kBlackBrown
+                                          )
+                                    )
+                                  ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(5.0),
@@ -115,6 +116,7 @@ class NewsListWidget extends StatelessWidget {
                                     Text(
                                       showPercent(
                                           newsList[index].percent.toString()),
+                                          
                                       style: TextStyle(
                                         fontSize: 14,
                                         overflow: TextOverflow.clip,
