@@ -41,144 +41,102 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-       backgroundColor: kWhite1,
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            
-            Container(
-
-              decoration: const BoxDecoration(
-                color: kOpcBlue,
-                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40.0), bottomRight: Radius.circular(40.0)) 
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+              color: kOpcBlue,
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(40.0),
+                  bottomRight: Radius.circular(40.0))),
+          height: 150,
+          width: double.maxFinite,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.account_circle_rounded,
+                size: 80,
+                color: kBlackBrown,
               ),
-              height: 180,
-              width: double.maxFinite,
-              
-              child: Row(
-               
-                children: [
-                  
-                 Padding(
-                   padding: const EdgeInsets.fromLTRB(10, 0.0, 85, 80),
-                   child: IconButton(
-                                icon: Icon(
-                                  Icons.arrow_back_ios_new_outlined ,
-                                  color: kBlackBrown,
-                                  size: 25,
-                                ),
-                                onPressed: () {
-                                  print('back button is pressed');
-                                  Get.back();
-                                },
-                    ),
-                 ),
-             
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-
-         
-                        Padding(
-                          padding: const EdgeInsets.only(top:40.0),
-                          child: Icon(
-                            Icons.account_circle_rounded,
-                            size: 80,
-                            color: kBlackBrown,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 3,
-                        ),
-                      
-                      Text(
-                        UserSharedPreference.getUser()[1],
-                        style: const TextStyle(
-                          color: kBlackBrown,
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ],
+              SizedBox(
+                height: 3,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0.00, 10.0, 0.0, 0.0),
-              child: Container(
-              
-                child: TabBar(
-                    labelColor: Colors.black,
-                    unselectedLabelColor: Colors.grey,
-                    controller: _tabController,
-                    indicatorColor: kDarkBlue,
-        
-                    tabs: [
-                      Tab(
-                        child: Text('About You',
-                            style: GoogleFonts.montserrat(
-                                color: kBlackBrown,
-                                fontWeight: FontWeight.w600)),
-                      ),
-                      Tab(
-                        // text: 'Log out',
-
-                        child: GestureDetector(
-                            child: Text('Log out',
-                                style: GoogleFonts.montserrat(
-                                    color: kBlackBrown,
-                                    fontWeight: FontWeight.w600)),
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) => AlertDialog(
-                                  title: Text("Log Out"),
-                                  content: Text(
-                                      'Are you sure you want to Log Out?'),
-                                  actions: [
-                                    TextButton(
-                                        onPressed: () {
-                                          UserSharedPreference.deleteUser();
-                                          UserSharedPreference
-                                              .deleteFilterListNews();
-                                          Get.toNamed('/login');
-                                        },
-                                        child: Text('Yes')),
-                                    TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context),
-                                        child: Text('No')),
-                                  ],
-                                ),
-                              );
-                            }),
-                      ),
-                    ]),
+              Text(
+                UserSharedPreference.getUser()[1],
+                style: const TextStyle(
+                    color: kBlackBrown,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: SingleChildScrollView(
-                child: Container(
-                  // height: MediaQuery.of(context).size.height,
-                  width: double.maxFinite,
-                  height: MediaQuery.of(context).size.height,
-
-                  child: TabBarView(
-                      controller: _tabController,
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: [
-                        // IconWidget(iconData: Icons.access_alarm, txt: 'edit'),
-                        EditProfile(),
-                        Text('log out'),
-                      ]),
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
+        Container(
+          child: TabBar(
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.grey,
+              controller: _tabController,
+              indicatorColor: kDarkBlue,
+              tabs: [
+                Tab(
+                  child: Text('About You',
+                      style: GoogleFonts.montserrat(
+                          color: kBlackBrown, fontWeight: FontWeight.w600)),
+                ),
+                Tab(
+                  // text: 'Log out',
+    
+                  child: GestureDetector(
+                      child: Text('Log out',
+                          style: GoogleFonts.montserrat(
+                              color: kBlackBrown,
+                              fontWeight: FontWeight.w600)),
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text("Log Out"),
+                            content:
+                                Text('Are you sure you want to Log Out?'),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    UserSharedPreference.deleteUser();
+                                    UserSharedPreference
+                                        .deleteFilterListNews();
+                                    Get.toNamed('/login');
+                                  },
+                                  child: Text('Yes')),
+                              TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: Text('No')),
+                            ],
+                          ),
+                        );
+                      }),
+                ),
+              ]),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(10.0,0.0,10.0,10.0),
+          child: Container(
+            // height: MediaQuery.of(context).size.height,
+            width: double.maxFinite,
+            height: MediaQuery.of(context).size.height,
+        
+            child: TabBarView(
+                controller: _tabController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  // IconWidget(iconData: Icons.access_alarm, txt: 'edit'),
+                  EditProfile(),
+                  Text('log out'),
+                ]),
+          ),
+        ),
+      ],
     );
   }
 }

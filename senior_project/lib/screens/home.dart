@@ -6,6 +6,7 @@ import 'package:senior_project/models/news.dart';
 import 'package:senior_project/providers/listnews_provider.dart';
 import 'package:senior_project/screens/addOpinion.dart';
 import 'package:senior_project/screens/display.dart';
+import 'package:senior_project/screens/profile.dart';
 import 'package:senior_project/utils/user_shared_preference.dart';
 import 'display.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,7 @@ class _HomeState extends State<Home> {
   static List<Widget> _widgetOptions = <Widget>[
     Display(),
     AddOpinion(),
+    Profile(),
   ];
 
   @override
@@ -65,6 +67,10 @@ class _HomeState extends State<Home> {
                 BottomNavigationBarItem(
                   icon: Icon(Icons.question_answer),
                   label: 'Opinion',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.account_circle_rounded),
+                  label: 'Profile',
                 ),
               ],
               currentIndex: _selectedIndex, //RxInt,

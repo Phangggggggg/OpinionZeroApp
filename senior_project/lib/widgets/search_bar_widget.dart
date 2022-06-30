@@ -25,13 +25,16 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
             data: ThemeData( hoverColor: Colors.pink),
             child: 
               TextField(
+               
                 decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(9),
+                  // contentPadding: EdgeInsets.all(9),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 9.0, horizontal: 10.0),
                   filled: true,
-                  fillColor: Color.fromARGB(255, 186, 203, 217),
+                  fillColor: Color.fromARGB(255, 221, 221, 221),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15.0),
-                    borderSide: BorderSide(color: Colors.grey, width: 0.0),
+                    borderSide: BorderSide.none,
+                    // borderSide: BorderSide(color: Color.fromARGB(255, 182, 182, 182), width: 0.0),
                    
                   ),
                   hintText: "Search",

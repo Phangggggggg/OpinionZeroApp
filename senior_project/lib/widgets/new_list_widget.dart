@@ -62,6 +62,10 @@ class NewsListWidget extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),
               child: Card(
+                elevation: 0,
+                  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(10.0),
+  ),
                 child: Row(
                   // mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,

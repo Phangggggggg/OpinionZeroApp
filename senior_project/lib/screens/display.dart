@@ -80,16 +80,7 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
               // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 10, 40, 0.0),
-                  child: IconButton(
-                    icon: Icon(Icons.account_circle_rounded, size: 40),
-                    onPressed: () {
-                      Get.toNamed('/profile');
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0.0, 10, 0.0, 0.0),
+                  padding: const EdgeInsets.fromLTRB(30.0, 10, 0.0, 0.0),
                   child:  Text(
                     'Breaking News',
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
