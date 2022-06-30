@@ -62,22 +62,31 @@ class NewsListWidget extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),
               child: Card(
+                color: kWhite1,
                 elevation: 0,
                   shape: RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(10.0),
+        
+
+    
   ),
                 child: Row(
                   // mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
-                      child: Image(
-                          image: AssetImage(rootImgPath +
-                              newsList[index].imgPath.toString() +
-                              '.png'),
-                          width: 100,
-                          height: 100),
+                      padding: const EdgeInsets.fromLTRB(10.0, 14.0, 0.0, 0.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(6.0),
+                        child: Image.asset(
+                           height: 80,
+                           width: 120,
+                           fit:BoxFit.fill,
+                          rootImgPath +
+                                newsList[index].imgPath.toString() +
+                                '.png' ,)
+                  
+                      ),
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,7 +95,7 @@ class NewsListWidget extends StatelessWidget {
                           padding:
                               const EdgeInsets.fromLTRB(8.0, 5.0, 0.0, 8.0),
                           child: Container(
-                            width: 200,
+                            width: 210,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               // mainAxisAlignment: MainAxisAlignment.start,
@@ -101,20 +110,25 @@ class NewsListWidget extends StatelessWidget {
                                               overflow: TextOverflow.clip,
                                               color: kBlackBrown))),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Text(
-                                    formatDate(newsList[index].date.toString()),
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      overflow: TextOverflow.clip,
-                                      // fontWeight: FontWeight.bold,
+                                Row(
+                                  children: [
+                                    
+                                    Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Text(
+                                        formatDate(newsList[index].date.toString()),
+                                        style: TextStyle(
+                                          color: kBlackBrown,
+                                          fontSize: 14,
+                                          overflow: TextOverflow.clip,
+                                          // fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                Padding(
+                                       Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
                                       buildIconWidget(
                                           newsList[index].xclass.toString()),
@@ -124,15 +138,18 @@ class NewsListWidget extends StatelessWidget {
                                       Text(
                                         showPercent(
                                             newsList[index].percent.toString()),
-                                        style: TextStyle(
+                                        style:TextStyle(
                                           fontSize: 14,
                                           overflow: TextOverflow.clip,
                                           fontWeight: FontWeight.bold,
-                                        ),
+                                        ) ,
                                       ),
                                     ],
                                   ),
                                 ),
+                                  ],
+                                ),
+                             
                               ],
                             ),
                           ),

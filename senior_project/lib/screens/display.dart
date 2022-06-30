@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:senior_project/widgets/logo_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:flutter/material.dart';
@@ -74,19 +75,31 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
     return Consumer<ListNewsProvider>(
         builder: (context, listNewsProvider, child) {
       return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            child: Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(30.0, 10, 0.0, 0.0),
-                  child:  Text(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(14.0, 20.0, 0.0, 18.0),
+              child:  Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
                     'Breaking News',
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
+                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: kBlackBrown),
                   ),
-                ),
-              ],
+                //  Container(
+                //   width: 100,
+                //   height: 3,
+                //   color: kDarkBlue,
+                //  ),
+                //  Container(
+                //   width: 110,
+                //   height: 4,
+                //   color: kLightBlue,
+                //  )
+                ],
+              ),
+              
             ),
           ),
           Container(
@@ -100,7 +113,7 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
                         _launchUrl(Uri.parse(lst[i].link.toString()));
                         },
                       child: Container(
-                        margin: const EdgeInsets.fromLTRB(9.0, 9.0, 9.0, 0.0),
+                        margin: const EdgeInsets.fromLTRB(9.0, 0.0, 9.0, 0.0),
                         height: 180,
                         width: 170,
                         child: ClipRRect(
@@ -112,6 +125,9 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
                       ),
                     );
                   })),
+                  SizedBox(
+                    height: 14.0,
+                  ),
           SearchBarWidget(),
           Padding(
             padding: const EdgeInsets.fromLTRB(8, 0.0, 8, 0.0),
@@ -119,10 +135,10 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
               // child: ColoredBox(
                 // color: Color.fromARGB(255, 228, 228, 228),
                 child: TabBar(
-                    indicatorSize: TabBarIndicatorSize.values[0],
+                    indicatorSize: TabBarIndicatorSize.label,
                     labelColor: kDarkBlue,
                     unselectedLabelColor: kBlackBrown,
-                    indicatorColor: kDarkBlue,
+                    indicatorColor: kLightBlue,
                     controller: _tabController,
                     tabs: [
                       Tab(
