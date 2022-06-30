@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../models/news.dart';
 import '/providers/listnews_provider.dart';
 import 'package:provider/provider.dart';
+import '/colors/colors.dart';
 
 class SearchBarWidget extends StatefulWidget {
   @override
@@ -16,30 +17,36 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(8.0),
+      padding: EdgeInsets.fromLTRB(8.0,8.0,8.0,0.0),
       child: Column(
         children: [
-          TextField(
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.all(9),
-              filled: true,
-              fillColor: Color.fromARGB(255, 232, 231, 231),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15.0),
-                borderSide: BorderSide(color: Colors.grey, width: 0.0),
-               
+          Theme(
+            
+            data: ThemeData( hoverColor: Colors.pink),
+            child: 
+              TextField(
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(9),
+                  filled: true,
+                  fillColor: Color.fromARGB(255, 186, 203, 217),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                    borderSide: BorderSide(color: Colors.grey, width: 0.0),
+                   
+                  ),
+                  hintText: "Search",
+                  prefixIcon: Icon(Icons.search, color: Color.fromARGB(255, 92, 91, 91)),
+                  hintStyle: TextStyle(fontSize: 16),
+                  suffixIcon: Icon(Icons.filter_list, color: Color.fromARGB(255, 92, 91, 91)),
+                ),
+                // controller: _textcontrollerTEXT,
+                onChanged: (value) {
+                  context.read<ListNewsProvider>().filterList(value);
+                  // Provider.of<ListNewsProvider>(context, listen: false)
+                  //     .filterList(value);
+                },
               ),
-              hintText: "Search",
-              prefixIcon: Icon(Icons.search, color: Color.fromARGB(255, 92, 91, 91)),
-              hintStyle: TextStyle(fontSize: 16),
-              suffixIcon: Icon(Icons.filter_list, color: Color.fromARGB(255, 92, 91, 91)),
-            ),
-            // controller: _textcontrollerTEXT,
-            onChanged: (value) {
-              context.read<ListNewsProvider>().filterList(value);
-              // Provider.of<ListNewsProvider>(context, listen: false)
-              //     .filterList(value);
-            },
+        
           ),
         
           //   Expanded(

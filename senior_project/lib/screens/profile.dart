@@ -42,6 +42,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       backgroundColor: kWhite1,
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -49,14 +50,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
             
             Container(
 
-              
-              // decoration: BoxDecoration(
-              //   image: DecorationImage(
-              //     image: AssetImage("lib/assets/image.jpeg"),
-              //     fit: BoxFit.cover,
-              // ),
-              // ),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: kOpcBlue,
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40.0), bottomRight: Radius.circular(40.0)) 
               ),

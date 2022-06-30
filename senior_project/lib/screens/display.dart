@@ -1,9 +1,9 @@
 import 'dart:async';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:senior_project/colors/colors.dart';
+import 'package:senior_project/utils/user_shared_preference.dart';
 import '/colors/colors.dart';
 import 'package:senior_project/models/news.dart';
 import 'package:get/get.dart';
@@ -15,8 +15,7 @@ import 'profile.dart';
 import '../widgets/search_bar_widget.dart';
 import 'package:provider/provider.dart';
 
-import 'package:google_fonts/google_fonts.dart'; 
-
+import 'package:google_fonts/google_fonts.dart';
 
 class Display extends StatefulWidget {
   @override
@@ -29,24 +28,39 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
       PageController(viewportFraction: 1, initialPage: 0);
   // late Timer _timer;
   // int _currentPage = 0;
+  void _launchUrl(Uri url) async {
+    if (!await launchUrl(url)) throw 'Could not launch $url';
+  }
+
+  static const String rootImgPath = "lib/assets/images/";
+  List<News> lst = [
+    News(
+        id: '62b933467e399ee039e9d790',
+        title:
+            '"บิณฑ์ บรรลือฤทธิ์" นัดรวมพลังชาวชลบุรี เทิดทูนและปกป้องสถาบันพระมหากษัตริย์ เย็นนี้',
+        imgPath: "img93",
+        link: "https://www.nationtv.tv/news/378805393"),
+    News(
+        id: '62b933467e399ee039e9d795',
+        title: "'‘บิ๊กป้อม’ จ่อตั้ง ‘สันติ พร้อมพัฒน์’ รักษาการเลขาฯพปชร.",
+        imgPath: "img130",
+        link: "https://www.dailynews.co.th/news/701608/"),
+    News(
+        id: '62b933467e399ee039e9d79d',
+        title: "“นายกฯตู่” ยันไม่ท้อ แม้ผลโพลบอกคะแนนนิยมลด ปัดส่งคนดีลทักษิณ",
+        imgPath: "img17",
+        link: "https://www.topnews.co.th/news/270525"),
+    News(
+        id: '62b933467e399ee039e9d7c0',
+        title: "'‘ไฟเซอร์ฝาส้ม’ ถึงไทย 3 แสนโด๊ส สธ. ลั่น ดีเดย์ฉีดเด็ก 31 ม.ค.",
+        imgPath: "img129",
+        link: "https://www.dailynews.co.th/news/703656/")
+  ];
 
   @override
   void initState() {
     _tabController = TabController(length: 4, vsync: this);
     _tabController.animateTo(2);
-    // _timer = Timer.periodic(Duration(milliseconds: 6), (Timer timer) {
-    //   if (_currentPage < 5) {
-    //     _currentPage++;
-    //   } else {
-    //     _currentPage = 0;
-    //   }
-
-    //   _pageController.animateToPage(
-    //     _currentPage,
-    //     duration: Duration(milliseconds: 350),
-    //     curve: Curves.easeIn,
-    //   );
-    // });
   }
 
   @override
@@ -57,124 +71,124 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          child: Row(
-            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 10, 40, 0.0),
-                child: IconButton(
-                  icon: Icon(Icons.account_circle_rounded, size: 40),
-                  onPressed: () {
-                    Get.toNamed('/profile');
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0.0, 10, 0.0, 0.0),
-                child: Text(
-                  'Breaking News',
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-            height: 180,
-            child: PageView.builder(
-                controller: _pageController,
-                itemCount: 4,
-                itemBuilder: (_, i) {
-                  return Container(
-                    margin: EdgeInsets.all(9.0),
-                    height: 180,
-                    width: 170,
-                    child: Image.asset(
-                      'lib/assets/imgOut.png',
-                      fit: BoxFit.fill,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(22.0)),
-                    ),
-                  );
-                })),
-        SearchBarWidget(),
-        Container(
-          child: TabBar(
-              indicatorSize: TabBarIndicatorSize.values[0],
-              labelColor: kDarkBlue,
-              unselectedLabelColor: kBlackBrown,
-              indicatorColor: kDarkBlue,
-              controller: _tabController,
-              tabs: [
-                Tab(
-                  child: Text(
-                    'All',
-                    style:GoogleFonts.mitr(textStyle: const TextStyle(
-                                              fontSize: 16, 
-                                          ),
-                    ),
+    return Consumer<ListNewsProvider>(
+        builder: (context, listNewsProvider, child) {
+      return Column(
+        children: [
+          Container(
+            child: Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 10, 40, 0.0),
+                  child: IconButton(
+                    icon: Icon(Icons.account_circle_rounded, size: 40),
+                    onPressed: () {
+                      Get.toNamed('/profile');
+                    },
                   ),
                 ),
-                Tab(
-                  child: Text(
-                    'Red',
-                    style: GoogleFonts.mitr(textStyle: const TextStyle(
-                                              fontSize: 16,  
-                                          ),
-                    ),
-                  ), 
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0.0, 10, 0.0, 0.0),
+                  child:  Text(
+                    'Breaking News',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
+                  ),
                 ),
-                Tab(
-                    child: Text(
-                  'Yellow',
-                  style: GoogleFonts.mitr(textStyle: const TextStyle(
-                                              fontSize: 16, 
-                                          ),
-                        )
-                    ),
-                ),
-                Tab(
-                  child: Text(
-                    'Neutral',
-                    style: GoogleFonts.mitr(textStyle: const TextStyle(
-                                              fontSize: 16, 
-                                          ),
-                        )
-                    )
-                )
-              ]),
-        ),
-        SingleChildScrollView(
-          child: Container(
-            // height: MediaQuery.of(context).size.height,
-            width: double.maxFinite,
-            height: MediaQuery.of(context).size.height,
-
-            child: TabBarView(controller: _tabController, children: [
-              Consumer<ListNewsProvider>(
-                  builder: (context, listNewsProvider, child) {
-                return NewsListWidget(listNewsProvider.filterListNews);
-              }),
-              Consumer<ListNewsProvider>(
-                  builder: (context, listNewsProvider, child) {
-                return NewsListWidget(listNewsProvider.filterRedListNews);
-              }),
-              Consumer<ListNewsProvider>(
-                  builder: (context, listNewsProvider, child) {
-                return NewsListWidget(listNewsProvider.filterNeutralListNews);
-              }),
-              Consumer<ListNewsProvider>(
-                  builder: (context, listNewsProvider, child) {
-                return NewsListWidget(listNewsProvider.filterYellowListNews);
-              })
-            ]),
+              ],
+            ),
           ),
-        ), //
-      ],
-    );
+          Container(
+              height: 180,
+              child: PageView.builder(
+                  controller: _pageController,
+                  itemCount: 4,
+                  itemBuilder: (_, i) {
+                    return GestureDetector(
+                      onTap:() { 
+                        _launchUrl(Uri.parse(lst[i].link.toString()));
+                        },
+                      child: Container(
+                        margin: const EdgeInsets.fromLTRB(9.0, 9.0, 9.0, 0.0),
+                        height: 180,
+                        width: 170,
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(15.0),
+                            child: Image.asset(
+                              rootImgPath + lst[i].imgPath.toString() + ".png",
+                              fit: BoxFit.fill,
+                            )),
+                      ),
+                    );
+                  })),
+          SearchBarWidget(),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8, 0.0, 8, 0.0),
+            child: Container(
+              // child: ColoredBox(
+                // color: Color.fromARGB(255, 228, 228, 228),
+                child: TabBar(
+                    indicatorSize: TabBarIndicatorSize.values[0],
+                    labelColor: kDarkBlue,
+                    unselectedLabelColor: kBlackBrown,
+                    indicatorColor: kDarkBlue,
+                    controller: _tabController,
+                    tabs: [
+                      Tab(
+                        child: Text(
+                          'All',
+                          style: GoogleFonts.mitr(
+                            textStyle: const TextStyle(
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Tab(
+                        child: Text(
+                          'Red',
+                          style: GoogleFonts.mitr(
+                            textStyle: const TextStyle(
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Tab(
+                        child: Text('Yellow',
+                            style: GoogleFonts.mitr(
+                              textStyle: const TextStyle(
+                                fontSize: 15,
+                              ),
+                            )),
+                      ),
+                      Tab(
+                          child: Text('Neutral',
+                              style: GoogleFonts.mitr(
+                                textStyle: const TextStyle(
+                                  fontSize: 15,
+                                ),
+                              )))
+                    ]),
+              ),
+            ),
+          // ),
+          SingleChildScrollView(
+            child: Container(
+              // height: MediaQuery.of(context).size.height,
+              width: double.maxFinite,
+              height: MediaQuery.of(context).size.height,
+
+              child: TabBarView(controller: _tabController, children: [
+                NewsListWidget(listNewsProvider.filterListNews),
+                NewsListWidget(listNewsProvider.filterRedListNews),
+                NewsListWidget(listNewsProvider.filterNeutralListNews),
+                NewsListWidget(listNewsProvider.filterYellowListNews),
+              ]),
+            ),
+          ), //
+        ],
+      );
+    });
   }
 }

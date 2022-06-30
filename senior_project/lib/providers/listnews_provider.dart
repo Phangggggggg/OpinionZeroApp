@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:senior_project/models/news.dart';
 import 'package:provider/provider.dart';
 import 'package:senior_project/utils/user_shared_preference.dart';
+import "dart:math";
 
 class ListNewsProvider with ChangeNotifier {
   int selectedIndex = 0;
+
+
 
   late List<News> opinionListNews = [];
   late List<News> listNews = [];
@@ -19,7 +22,9 @@ class ListNewsProvider with ChangeNotifier {
 
   void fetchListNews(List<News> list, List<News> reds, List<News> yellows,
       List<News> nuetrals) {
+    // list.shuffle();
     listNews = list;
+
     redListNews = reds;
     yellowListNews = yellows;
     nuetralListsNews = nuetrals;

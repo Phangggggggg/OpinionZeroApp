@@ -21,7 +21,7 @@ class NewsListWidget extends StatelessWidget {
 
   String showPercent(String percent) {
     double p = double.parse(percent) * 100;
-    return p.toStringAsFixed(2)+" %";
+    return p.toStringAsFixed(2) + " %";
   }
 
   String formatDate(String date) {
@@ -57,82 +57,86 @@ class NewsListWidget extends StatelessWidget {
         itemBuilder: (ctx, index) {
           return GestureDetector(
             onTap: () {
-                        print('tab');
-                        _launchUrl(Uri.parse(newsList[index].link.toString()));
-                      },
-            child: Card(
-              child: Row(
-                // mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Image(
-                        image: AssetImage(rootImgPath +
-                            newsList[index].imgPath.toString() +
-                            '.png'),
-                        width: 100,
-                        height: 100),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Container(
-                          width: 200,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            // mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Text(newsList[index].title.toString(),
-                                    style: GoogleFonts.mitr(textStyle: const TextStyle(
-                                              fontSize: 16, fontWeight: FontWeight.w500, overflow: TextOverflow.clip, color:  kBlackBrown
-                                          )
-                                    )
-                                  ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Text(
-                                  formatDate(newsList[index].date.toString()),
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    overflow: TextOverflow.clip,
-                                    // fontWeight: FontWeight.bold,
+              _launchUrl(Uri.parse(newsList[index].link.toString()));
+            },
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),
+              child: Card(
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+                      child: Image(
+                          image: AssetImage(rootImgPath +
+                              newsList[index].imgPath.toString() +
+                              '.png'),
+                          width: 100,
+                          height: 100),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding:
+                              const EdgeInsets.fromLTRB(8.0, 5.0, 0.0, 8.0),
+                          child: Container(
+                            width: 200,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              // mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(newsList[index].title.toString(),
+                                      style: GoogleFonts.mitr(
+                                          textStyle: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w500,
+                                              overflow: TextOverflow.clip,
+                                              color: kBlackBrown))),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    formatDate(newsList[index].date.toString()),
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      overflow: TextOverflow.clip,
+                                      // fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    buildIconWidget(newsList[index].xclass.toString()),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      showPercent(
-                                          newsList[index].percent.toString()),
-                                          
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        overflow: TextOverflow.clip,
-                                        fontWeight: FontWeight.bold,
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      buildIconWidget(
+                                          newsList[index].xclass.toString()),
+                                      SizedBox(
+                                        width: 10,
                                       ),
-                                    ),
-                                  ],
+                                      Text(
+                                        showPercent(
+                                            newsList[index].percent.toString()),
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          overflow: TextOverflow.clip,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           );
