@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:senior_project/providers/listnews_provider.dart';
 import 'package:senior_project/utils/user_shared_preference.dart';
-import '../widgets/list_opinion_news_widget.dart';
+import 'package:get/get.dart';
+import '../widgets/new_list_widget.dart';
 
 class VotedHistory extends StatefulWidget {
   const VotedHistory({Key? key}) : super(key: key);
@@ -15,23 +16,43 @@ class VotedHistory extends StatefulWidget {
 }
 
 class _VotedHistoryState extends State<VotedHistory> {
-
   @override
   Widget build(BuildContext context) {
-    News n = News(id: "xx", title: "rr");
-      
     return Consumer<ListNewsProvider>(
-      builder: (context,listNewsProvider, child) {
-        return Column(
+        builder: (context, listNewsProvider, child) {
+      return Scaffold(
+        body: Column(
           children: [
-            Text(
-              'Add Your Opinion',
-              style: TextStyle(fontSize: 30),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 30, 65, 3),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                      size: 30,
+                    ),
+                    onPressed: () {
+                      Get.back();
+                    },
+                  ),
+                  Text(
+                    'Voted History  ',
+                    style: TextStyle(fontSize: 30),
+                  ),
+                  // SizedBox(
+                  //   width: 2,
+                  // )
+                ],
+              ),
             ),
-            ListOpinionNewsWidget(listNewsProvider.opinionListNews),
+            Expanded(
+                child: NewsListWidget(listNewsProvider.votedHistoryList, 2)),
           ],
-        );
-      }
-    );
+        ),
+      );
+    });
   }
 }

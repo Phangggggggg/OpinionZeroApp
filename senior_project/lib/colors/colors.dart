@@ -8,7 +8,7 @@ const Color kBlackBrown = Color(0xff272830);
 
 const Color kYellow = Color(0xffffbf00);
 const Color kRed = Color(0xfffD222D);
-const Color kNeutral = Colors.green;
+const Color kNeutral = Colors.grey;
 const Color kWhite1 = Color(0xFFF5F5F5);
 const Color kWhite = Colors.white;
 

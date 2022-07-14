@@ -128,11 +128,17 @@ class News {
         var jsonBody = jsonDecode(resBody);
         if (jsonBody['status'] == 'Success') {
           List<String> newList = [];
+          List<String> xclassList = [];
           List<dynamic> dyList = jsonBody['news_ids'];
+          // print(dyList);
           dyList.forEach(
-            (element) => newList.add(element['news_id']),
+            (element) {
+              newList.add(element['news_id']);
+              xclassList.add(element['xclass']);
+            },
           );
           UserSharedPreference.setFilterNews(newList);
+          UserSharedPreference.setXclass(xclassList);
           return true;
         }
         return false;

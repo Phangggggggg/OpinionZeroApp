@@ -4,8 +4,8 @@ import 'package:senior_project/db/apiUrl.dart';
 import 'package:senior_project/utils/user_shared_preference.dart';
 
 class User {
-  Future<bool> createUser(String name, String username, String pwd, 
-  String fullName, String birthday, String phone, String city) async {
+  Future<bool> createUser(String name, String username, String pwd,
+      String fullName, String birthday, String phone) async {
     try {
       var res = await http.put(Uri.parse(ApiUrl.addUserUrl),
           headers: <String, String>{
@@ -18,7 +18,6 @@ class User {
             'fullname': fullName,
             'birthday': birthday,
             'phone': phone,
-            'city': city
           }));
       if (res.statusCode == 200) {
         var resBody = res.body;
@@ -52,13 +51,14 @@ class User {
           return false;
         }
         var jsonUser = jsonBody['user'];
-        UserSharedPreference.setUser(jsonUser['id'], 
-        jsonUser['username'],
-        jsonUser['email'],
-        jsonUser['fullname'],
-        jsonUser['birthday'],
-        jsonUser['phone'],
-        jsonUser['city']);
+        UserSharedPreference.setUser(
+          jsonUser['id'],
+          jsonUser['username'],
+          jsonUser['email'],
+          jsonUser['fullname'],
+          jsonUser['birthday'],
+          jsonUser['phone'],
+        );
         return true;
       }
     } catch (e) {

@@ -3,17 +3,23 @@ import 'package:senior_project/models/news.dart';
 import 'package:provider/provider.dart';
 import 'package:senior_project/utils/user_shared_preference.dart';
 import "dart:math";
+import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
+import 'package:senior_project/db/apiUrl.dart';
+import 'dart:convert';
 
 class ListNewsProvider with ChangeNotifier {
   int selectedIndex = 0;
-
-
 
   late List<News> opinionListNews = [];
   late List<News> listNews = [];
   late List<News> redListNews = [];
   late List<News> yellowListNews = [];
   late List<News> nuetralListsNews = [];
+
+  late List<News> votedHistoryList = [];
+  late List<String> filterOpinionNews = [];
+  late List<String> xclassList = [];
 
   late List<News> filterListNews = List.from(listNews);
   late List<News> filterRedListNews = List.from(listNews);
@@ -41,14 +47,22 @@ class ListNewsProvider with ChangeNotifier {
   }
 
   void fetchOpinionListNews(List<News> list) {
-    List<String> filterOpinionNews = UserSharedPreference.getFilterListNews();
-
+    votedHistoryList = [];
+    filterOpinionNews = UserSharedPreference.getFilterListNews();
+    xclassList = UserSharedPreference.getXclass();
+    final List<News> tmp = List.from(list);
     if (filterOpinionNews.isNotEmpty) {
-      for (String newsId in filterOpinionNews) {
-        list.removeWhere((element) => element.id == newsId);
+      for (var i = 0; i < filterOpinionNews.length; i++) {
+        list.forEach((element) {
+          if (element.id == filterOpinionNews[i]) {
+            element.xclass = xclassList[i];
+            votedHistoryList.add(element);
+            tmp.remove(element);
+          }
+        });
       }
     }
-    opinionListNews = list;
+    opinionListNews = tmp;
     notifyListeners();
   }
 

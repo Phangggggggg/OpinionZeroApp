@@ -9,14 +9,15 @@ import 'package:senior_project/screens/register.dart';
 import 'package:senior_project/screens/splash.dart';
 import 'package:provider/provider.dart';
 import 'package:senior_project/utils/user_shared_preference.dart';
-import 'package:google_fonts/google_fonts.dart'; 
+import 'package:google_fonts/google_fonts.dart';
 import 'screens/login.dart';
 import 'package:get/get.dart';
 import 'models/user.dart';
+import '/screens/votedHistory.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   Provider.debugCheckInvalidValueType = null;
   await UserSharedPreference.init();
   runApp(const MyApp());
@@ -38,17 +39,17 @@ class MyApp extends StatelessWidget {
       ],
       child: GetMaterialApp(
         theme: ThemeData(
-    
-          textTheme: GoogleFonts.montserratTextTheme(
+            textTheme: GoogleFonts.montserratTextTheme(
           Theme.of(context).textTheme,
         )),
-        initialRoute: UserSharedPreference.getUser().isNotEmpty ? '/home':'/',
+        initialRoute: UserSharedPreference.getUser().isNotEmpty ? '/home' : '/',
         getPages: [
           GetPage(name: '/', page: () => SplashScreen()),
           GetPage(name: '/login', page: () => Login()),
           GetPage(name: '/home', page: () => Home()),
           GetPage(name: '/register', page: () => Register()),
           GetPage(name: '/profile', page: () => Profile()),
+          GetPage(name: '/votedHistory', page: () => VotedHistory())
           // GetPage(name: '/add',page: () => AddOpinionWidget());
         ],
       ),

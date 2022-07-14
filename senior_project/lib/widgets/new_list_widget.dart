@@ -12,8 +12,9 @@ import 'package:google_fonts/google_fonts.dart';
 class NewsListWidget extends StatelessWidget {
   final List<News> newsList;
   static const String rootImgPath = "lib/assets/images/";
+  final int diff;
 
-  NewsListWidget(this.newsList);
+  NewsListWidget(this.newsList, this.diff);
 
   void _launchUrl(Uri url) async {
     if (!await launchUrl(url)) throw 'Could not launch $url';
@@ -36,17 +37,29 @@ class NewsListWidget extends StatelessWidget {
     return now;
   }
 
-  Widget buildIconWidget(String xclass) {
-    if (xclass == '1') {
-      return XclassWidget(
-        icon: Icons.circle,
-        size: 12,
-        color: kYellow,
-      );
-    } else if (xclass == '2') {
-      return XclassWidget(icon: Icons.circle, size: 12, color: kRed);
+  Widget buildIconWidget(String xclass, int diff) {
+    if (diff == 1) {
+      if (xclass == '1') {
+        return XclassWidget(
+            icon: Icons.circle, size: 12, color: kYellow, diff: diff);
+      } else if (xclass == '2') {
+        return XclassWidget(
+            icon: Icons.circle, size: 12, color: kRed, diff: diff);
+      } else {
+        return XclassWidget(
+            icon: Icons.circle, size: 12, color: kNeutral, diff: diff);
+      }
     } else {
-      return XclassWidget(icon: Icons.circle, size: 12, color: kNeutral);
+      if (xclass == '1') {
+        return XclassWidget(
+            icon: Icons.circle, size: 12, color: kYellow, diff: diff);
+      } else if (xclass == '2') {
+        return XclassWidget(
+            icon: Icons.circle, size: 12, color: kRed, diff: diff);
+      } else {
+        return XclassWidget(
+            icon: Icons.circle, size: 12, color: kNeutral, diff: diff);
+      }
     }
   }
 
@@ -64,12 +77,9 @@ class NewsListWidget extends StatelessWidget {
               child: Card(
                 color: kWhite1,
                 elevation: 0,
-                  shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(10.0),
-        
-
-    
-  ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
                 child: Row(
                   // mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,16 +87,15 @@ class NewsListWidget extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(10.0, 14.0, 0.0, 0.0),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(6.0),
-                        child: Image.asset(
-                           height: 80,
-                           width: 120,
-                           fit:BoxFit.fill,
-                          rootImgPath +
+                          borderRadius: BorderRadius.circular(6.0),
+                          child: Image.asset(
+                            height: 80,
+                            width: 120,
+                            fit: BoxFit.fill,
+                            rootImgPath +
                                 newsList[index].imgPath.toString() +
-                                '.png' ,)
-                  
-                      ),
+                                '.png',
+                          )),
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,11 +121,11 @@ class NewsListWidget extends StatelessWidget {
                                 ),
                                 Row(
                                   children: [
-                                    
                                     Padding(
                                       padding: const EdgeInsets.all(5.0),
                                       child: Text(
-                                        formatDate(newsList[index].date.toString()),
+                                        formatDate(
+                                            newsList[index].date.toString()),
                                         style: TextStyle(
                                           color: kBlackBrown,
                                           fontSize: 14,
@@ -125,31 +134,35 @@ class NewsListWidget extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                       Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      buildIconWidget(
-                                          newsList[index].xclass.toString()),
-                                      SizedBox(
-                                        width: 10,
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          buildIconWidget(
+                                              newsList[index].xclass.toString(),
+                                              diff),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          newsList[index].percent != null
+                                              ? Text(
+                                                  showPercent(newsList[index]
+                                                      .percent
+                                                      .toString()),
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    overflow: TextOverflow.clip,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                )
+                                              : Text(''),
+                                        ],
                                       ),
-                                      Text(
-                                        showPercent(
-                                            newsList[index].percent.toString()),
-                                        style:TextStyle(
-                                          fontSize: 14,
-                                          overflow: TextOverflow.clip,
-                                          fontWeight: FontWeight.bold,
-                                        ) ,
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                    ),
                                   ],
                                 ),
-                             
                               ],
                             ),
                           ),

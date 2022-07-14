@@ -53,7 +53,8 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
         link: "https://www.topnews.co.th/news/270525"),
     News(
         id: '62b933467e399ee039e9d7c0',
-        title: "'‘ไฟเซอร์ฝาส้ม’ ถึงไทย 3 แสนโด๊ส สธ. ลั่น ดีเดย์ฉีดเด็ก 31 ม.ค.",
+        title:
+            "'‘ไฟเซอร์ฝาส้ม’ ถึงไทย 3 แสนโด๊ส สธ. ลั่น ดีเดย์ฉีดเด็ก 31 ม.ค.",
         imgPath: "img129",
         link: "https://www.dailynews.co.th/news/703656/")
   ];
@@ -80,32 +81,34 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
           Container(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(14.0, 20.0, 0.0, 18.0),
-              child:  Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Breaking News',
-                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: kBlackBrown),
+                    style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: kBlackBrown),
                   ),
-                 Padding(
-                   padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 0.0),
-                   child: Container(
-                    width: 100,
-                    height: 4,
-                    color: kDarkBlue,
-                   ),
-                 ),
-                 Padding(
-                   padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-                   child: Container(
-                    width: 110,
-                    height: 5,
-                    color: kLightBlue,
-                   ),
-                 )
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 0.0),
+                    child: Container(
+                      width: 100,
+                      height: 4,
+                      color: kDarkBlue,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+                    child: Container(
+                      width: 110,
+                      height: 5,
+                      color: kLightBlue,
+                    ),
+                  )
                 ],
               ),
-              
             ),
           ),
           Container(
@@ -115,9 +118,9 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
                   itemCount: 4,
                   itemBuilder: (_, i) {
                     return GestureDetector(
-                      onTap:() { 
+                      onTap: () {
                         _launchUrl(Uri.parse(lst[i].link.toString()));
-                        },
+                      },
                       child: Container(
                         margin: const EdgeInsets.fromLTRB(9.0, 0.0, 9.0, 0.0),
                         height: 180,
@@ -131,60 +134,60 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
                       ),
                     );
                   })),
-                  SizedBox(
-                    height: 14.0,
-                  ),
+          SizedBox(
+            height: 14.0,
+          ),
           SearchBarWidget(),
           Padding(
             padding: const EdgeInsets.fromLTRB(8, 0.0, 8, 0.0),
             child: Container(
               // child: ColoredBox(
-                // color: Color.fromARGB(255, 228, 228, 228),
-                child: TabBar(
-                    indicatorSize: TabBarIndicatorSize.label,
-                    labelColor: kDarkBlue,
-                    unselectedLabelColor: kBlackBrown,
-                    indicatorColor: kLightBlue,
-                    controller: _tabController,
-                    tabs: [
-                      Tab(
-                        child: Text(
-                          'All',
+              // color: Color.fromARGB(255, 228, 228, 228),
+              child: TabBar(
+                  indicatorSize: TabBarIndicatorSize.label,
+                  labelColor: kDarkBlue,
+                  unselectedLabelColor: kBlackBrown,
+                  indicatorColor: kLightBlue,
+                  controller: _tabController,
+                  tabs: [
+                    Tab(
+                      child: Text(
+                        'All',
+                        style: GoogleFonts.mitr(
+                          textStyle: const TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Tab(
+                      child: Text(
+                        'Red',
+                        style: GoogleFonts.mitr(
+                          textStyle: const TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Tab(
+                      child: Text('Yellow',
                           style: GoogleFonts.mitr(
                             textStyle: const TextStyle(
                               fontSize: 15,
                             ),
-                          ),
-                        ),
-                      ),
-                      Tab(
-                        child: Text(
-                          'Red',
-                          style: GoogleFonts.mitr(
-                            textStyle: const TextStyle(
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Tab(
-                        child: Text('Yellow',
+                          )),
+                    ),
+                    Tab(
+                        child: Text('Neutral',
                             style: GoogleFonts.mitr(
                               textStyle: const TextStyle(
                                 fontSize: 15,
                               ),
-                            )),
-                      ),
-                      Tab(
-                          child: Text('Neutral',
-                              style: GoogleFonts.mitr(
-                                textStyle: const TextStyle(
-                                  fontSize: 15,
-                                ),
-                              )))
-                    ]),
-              ),
+                            )))
+                  ]),
             ),
+          ),
           // ),
           SingleChildScrollView(
             child: Container(
@@ -193,10 +196,10 @@ class _DisplayState extends State<Display> with SingleTickerProviderStateMixin {
               height: MediaQuery.of(context).size.height,
 
               child: TabBarView(controller: _tabController, children: [
-                NewsListWidget(listNewsProvider.filterListNews),
-                NewsListWidget(listNewsProvider.filterRedListNews),
-                NewsListWidget(listNewsProvider.filterNeutralListNews),
-                NewsListWidget(listNewsProvider.filterYellowListNews),
+                NewsListWidget(listNewsProvider.filterListNews, 1),
+                NewsListWidget(listNewsProvider.filterRedListNews, 1),
+                NewsListWidget(listNewsProvider.filterNeutralListNews, 1),
+                NewsListWidget(listNewsProvider.filterYellowListNews, 1),
               ]),
             ),
           ), //

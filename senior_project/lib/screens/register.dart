@@ -23,7 +23,6 @@ class _RegisterState extends State<Register> {
   TextEditingController emailController = TextEditingController();
   TextEditingController fullNameController = TextEditingController();
   TextEditingController dateCtl = TextEditingController();
-  TextEditingController city = TextEditingController();
   TextEditingController phoneNoController = TextEditingController();
 
   String _userName = '';
@@ -31,7 +30,6 @@ class _RegisterState extends State<Register> {
   String _email = '';
   String _message = '';
   String _phone = '';
-  String _cityName = '';
   String _fullname = '';
   String _birthday = '';
 
@@ -45,7 +43,6 @@ class _RegisterState extends State<Register> {
     emailController.clear();
     fullNameController.clear();
     dateCtl.clear();
-    city.clear();
     phoneNoController.clear();
     _message = "";
   }
@@ -80,7 +77,6 @@ class _RegisterState extends State<Register> {
       ])),
     );
   }
-
 
   Future<void> _showMyDialog() async {
     return showDialog<void>(
@@ -117,27 +113,6 @@ class _RegisterState extends State<Register> {
       },
     );
   }
-
-  // void _showAlertDialog(BuildContext context) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) => CupertinoAlertDialog(
-  //       title: const Text(
-  //         'Register Confirmation',
-  //       ),
-  //       content: const Text('You are successfully register your account'),
-  //       actions: <CupertinoDialogAction>[
-  //         CupertinoDialogAction(
-  //           isDestructiveAction: true,
-  //           onPressed: () {
-  //             Get.toNamed('/login');
-  //           },
-  //           child: const Text('Yes'),
-  //         )
-  //       ],
-  //     ),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -242,83 +217,84 @@ class _RegisterState extends State<Register> {
                               child: Padding(
                                   padding: const EdgeInsets.all(7.0),
                                   child: DateTimeField(
-                                      controller: dateCtl,
-                                      decoration: InputDecoration(
-                                        contentPadding: EdgeInsets.symmetric(
-                                            vertical: 15.0),
-                                        filled: true,
-                                        iconColor: kDarkBlue,
-                                        fillColor: kWhite,
-                                        focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: kWhite, width: 2.0),
-                                            borderRadius:
-                                                BorderRadius.circular(15.0)),
-                                        enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: kWhite, width: 2.0),
-                                            borderRadius:
-                                                BorderRadius.circular(15.0)),
-                                        labelText: "Birthday",
-                                        hintText: 'Your Date of Birth',
-                                        prefixIcon:
-                                            Icon(Icons.calendar_month_outlined),
-                                      ),
-                                      style: TextStyle(fontSize: 15),
-                                      format: format,
-                                      onShowPicker:
-                                          (context, currentValue) async {
-                                        final date = showDatePicker(
-                                          builder: (context, child) {
-                                            return Theme(
-                                              data: Theme.of(context).copyWith(
-                                                colorScheme: ColorScheme.light(
+                                    controller: dateCtl,
+                                    decoration: InputDecoration(
+                                      contentPadding:
+                                          EdgeInsets.symmetric(vertical: 15.0),
+                                      filled: true,
+                                      iconColor: kDarkBlue,
+                                      fillColor: kWhite,
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: kWhite, width: 2.0),
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: kWhite, width: 2.0),
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                      labelText: "Birthday",
+                                      hintText: 'Your Date of Birth',
+                                      prefixIcon:
+                                          Icon(Icons.calendar_month_outlined),
+                                    ),
+                                    style: TextStyle(fontSize: 15),
+                                    format: format,
+                                    onShowPicker:
+                                        (context, currentValue) async {
+                                      final date = showDatePicker(
+                                        builder: (context, child) {
+                                          return Theme(
+                                            data: Theme.of(context).copyWith(
+                                              colorScheme: ColorScheme.light(
+                                                primary:
+                                                    kBlue, // header background color
+                                                onPrimary:
+                                                    kWhite, // header text color
+                                                onSurface:
+                                                    kBlackBrown, // body text color
+                                              ),
+                                              textButtonTheme:
+                                                  TextButtonThemeData(
+                                                style: TextButton.styleFrom(
                                                   primary:
-                                                      kBlue, // header background color
-                                                  onPrimary:
-                                                      kWhite, // header text color
-                                                  onSurface:
-                                                      kBlackBrown, // body text color
-                                                ),
-                                                textButtonTheme:
-                                                    TextButtonThemeData(
-                                                  style: TextButton.styleFrom(
-                                                    primary:
-                                                        kBlackBrown, // button text color
-                                                  ),
+                                                      kBlackBrown, // button text color
                                                 ),
                                               ),
-                                              child: child!,
-                                            );
-                                          },
-                                          context: context,
-                                          initialDate:
-                                              currentValue ?? DateTime.now(),
-                                          firstDate: DateTime(1900),
-                                          lastDate: DateTime(2100),
-                                        );
+                                            ),
+                                            child: child!,
+                                          );
+                                        },
+                                        context: context,
+                                        initialDate:
+                                            currentValue ?? DateTime.now(),
+                                        firstDate: DateTime(1900),
+                                        lastDate: DateTime(2100),
+                                      );
 
-                                        return date;
-                                      },
-                                      validator: (text) {
+                                      return date;
+                                    },
+                                    validator: (text) {
                                       if (text == null) {
                                         return 'Enter your Birthday';
                                       }
                                       return null;
                                     },
-                                  )
-                                ),       ),
+                                  )),
+                            ),
                           ]),
                           Row(
                             children: <Widget>[
                               Flexible(
                                 child: Padding(
-                                  padding:  const EdgeInsets.all(7.0),
+                                  padding: const EdgeInsets.all(7.0),
                                   child: TextFormField(
                                     controller: phoneNoController,
                                     decoration: InputDecoration(
                                       contentPadding:
-                                          const EdgeInsets.symmetric(vertical: 15.0),
+                                          const EdgeInsets.symmetric(
+                                              vertical: 15.0),
                                       filled: true,
                                       iconColor: kDarkBlue,
                                       fillColor: kWhite,
@@ -347,42 +323,6 @@ class _RegisterState extends State<Register> {
                                   ),
                                 ),
                               ),
-                              Flexible(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(7.0),
-                                  child: TextFormField(
-                                    controller: city,
-                                    decoration: InputDecoration(
-                                      contentPadding:
-                                          EdgeInsets.symmetric(vertical: 15.0),
-                                      filled: true,
-                                      iconColor: kDarkBlue,
-                                      fillColor: kWhite,
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: kWhite, width: 2.0),
-                                          borderRadius:
-                                              BorderRadius.circular(15.0)),
-                                      enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: kWhite, width: 2.0),
-                                          borderRadius:
-                                              BorderRadius.circular(15.0)),
-                                      labelText: "Your City",
-                                      hintText: 'Enter your City',
-                                      prefixIcon:
-                                          Icon(Icons.add_location_alt_outlined),
-                                    ),
-                                    style: TextStyle(fontSize: 15),
-                                    validator: (text) {
-                                      if (text == null || text.isEmpty) {
-                                        return 'Enter your City';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                              )
                             ],
                           ),
                           Padding(
@@ -426,12 +366,12 @@ class _RegisterState extends State<Register> {
                                 iconColor: kDarkBlue,
                                 fillColor: kWhite,
                                 focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                        const BorderSide(color: kWhite, width: 2.0),
+                                    borderSide: const BorderSide(
+                                        color: kWhite, width: 2.0),
                                     borderRadius: BorderRadius.circular(15.0)),
                                 enabledBorder: OutlineInputBorder(
-                                    borderSide:
-                                        const BorderSide(color: kWhite, width: 2.0),
+                                    borderSide: const BorderSide(
+                                        color: kWhite, width: 2.0),
                                     borderRadius: BorderRadius.circular(15.0)),
                                 labelText: "Password",
                                 hintText: 'Enter your Password',
@@ -460,7 +400,6 @@ class _RegisterState extends State<Register> {
                                       BorderRadius.all(Radius.circular(15.0)),
                                 ),
                                 onPressed: () {
-
                                   if (_formKey.currentState!.validate()) {
                                     var uname = usernameController.text;
                                     var pwd = passwordController.text;
@@ -468,7 +407,6 @@ class _RegisterState extends State<Register> {
                                     var phone = phoneNoController.text;
                                     var fullname = fullNameController.text;
                                     var birthday = dateCtl.text;
-                                    var cityName = city.text;
 
                                     setState(() {
                                       _userName = uname;
@@ -477,24 +415,21 @@ class _RegisterState extends State<Register> {
                                       _phone = phone;
                                       _fullname = fullname;
                                       _birthday = birthday;
-                                      _cityName = cityName;
-                                  
+
                                       _message =
                                           "username : $uname\nPassword : $pwd";
                                       user
                                           .createUser(
-                                              _email,
-                                              _userName,
-                                              _passWord,
-                                              _fullname,
-                                              _birthday,
-                                              _phone,
-                                              _cityName)
+                                        _email,
+                                        _userName,
+                                        _passWord,
+                                        _fullname,
+                                        _birthday,
+                                        _phone,
+                                      )
                                           .then((value) {
                                         if (value) {
-                                        
                                           _showMyDialog();
-                                          
                                         } else {
                                           setState(() {
                                             resetTextField();
